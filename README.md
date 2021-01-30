@@ -16,3 +16,7 @@ possible feature notes:
 * could be helpful to campus
 * use google oauth credentials to handle signin? use a plugin?
 * need to figure out backend stuff - what info do we need to store, how should things be organized? table relations?
+
+Future Scope:
+* Reports and dashboard for admin/employee's
+* Email notifications for payroll run, missing timesheets.
