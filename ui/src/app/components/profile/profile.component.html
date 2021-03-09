@@ -1,0 +1,47 @@
+<p>profile works!</p>
+<div class="container">
+<mat-form-field appearance="fill">
+  <mat-label>Employee ID</mat-label>
+  <input matInput [(ngModel)]="employee.Emp_ID">
+</mat-form-field>
+&nbsp;&nbsp;
+<mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="employee.Email">
+  </mat-form-field>  
+
+<br>
+<mat-form-field appearance="fill">
+  <mat-label>FirstName</mat-label>
+  <input matInput [(ngModel)]="employee.FirstName">
+</mat-form-field>
+&nbsp;&nbsp;
+<mat-form-field appearance="fill">
+  <mat-label>Lastname</mat-label>
+  <input matInput [(ngModel)]="employee.LastName">
+</mat-form-field>
+<br>
+
+<mat-form-field appearance="fill">
+  <mat-label>Department</mat-label>
+  <input matInput [(ngModel)]="employee.Department">
+</mat-form-field>
+&nbsp;&nbsp;
+<mat-form-field appearance="fill">
+  <mat-label>Position</mat-label>
+  <input matInput [(ngModel)]="employee.Position">
+</mat-form-field>
+<br>
+<mat-form-field appearance="fill">
+  <mat-label>Pay Rate</mat-label>
+  <input matInput [(ngModel)]="employee.Pay_Rate">
+</mat-form-field>
+&nbsp;&nbsp;
+<mat-form-field appearance="fill">
+  <mat-label>Phone</mat-label>
+  <input matInput [(ngModel)]="employee.Phone">
+</mat-form-field>
+
+<br>
+<button mat-button color="primary" (click)="save()" >Save</button>
+</div>

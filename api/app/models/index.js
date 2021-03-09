@@ -8,5 +8,5 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.books = require("./book.model.js")(mongoose);
-
+db.user = require("./profile.model.js")(mongoose);
 module.exports = db;
