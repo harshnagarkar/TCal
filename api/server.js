@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8080"
+  // origin: "http://localhost:8080"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors());
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/book.routes")(app);
+require("./app/routes/profile.routes")(app);
 //require('./app/routes/book.routes')(app)
 
 // set port, listen for requests
