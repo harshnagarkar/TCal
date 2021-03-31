@@ -1,0 +1,43 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "timesheet" as e01 {
+  *e1_id : HashString <<generated>>
+  --
+  *EmpName : text
+  Month : text
+  TimeIn : text
+  TimeOut : text
+  NumHours : text
+  current : boolean
+}
+
+entity "profile" as e02 {
+  *e2_id : number <<generated>>
+  --
+  *empId : number <<FK>>
+  firstname : text
+  lastname : text
+  department : text
+  position : text
+  payRate : number
+  *email : text <<FK>>
+  phone : number
+}
+
+
+entity "Authorization" as e03 {
+  *e2_id : number <<generated>>
+  --
+  *empId : number 
+  *email : text
+}
+
+
+e01 ||..o{ e02
+e02 ||..o e03
+@enduml
