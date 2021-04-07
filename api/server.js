@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/book.routes")(app);
 require("./app/routes/profile.routes")(app);
+require("./app/routes/timesheet.routes")(app);
 //require('./app/routes/book.routes')(app)
 
 // set port, listen for requests
