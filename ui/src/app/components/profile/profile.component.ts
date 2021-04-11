@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "src/app/services/profile.service";
+import { InteractionService } from 'src/app/interaction.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
     Phone:0
   }
 
-  constructor(private pService : ProfileService) {
+  constructor(private pService : ProfileService, private interactionService: InteractionService) {
     this.employee.Emp_ID="6"
     let datacall = pService.get(this.employee.Emp_ID);
     datacall.subscribe(data=>{
@@ -37,6 +38,11 @@ export class ProfileComponent implements OnInit {
     })
 
    }
+
+  test() {
+    this.interactionService.sendMessage(this.employee.Emp_ID)
+    console.log(this.employee.Emp_ID)
+  }
 
   ngOnInit(): void {
   }
