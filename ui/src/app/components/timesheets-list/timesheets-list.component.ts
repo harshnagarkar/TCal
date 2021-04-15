@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
-import { ProfileService } from 'src/app/services/profile.service'
 import { InteractionService } from 'src/app/interaction.service';
+import { ProfileComponent } from 'src/app/components/profile/profile.component'
+import { Observable, Subscription } from 'rxjs';
+/*import {
+  test
+} from 'src/app/components/profile/profile.component';
+*/
 @Component({
   selector: 'app-timesheets-list',
   template: `
@@ -80,7 +85,6 @@ import { InteractionService } from 'src/app/interaction.service';
         <p>Please click on a Timesheet...</p>
       </div>
     </div>
-    <button mat-button color="primary" (click)="test()" >Test Interaction</button>
   </div>
   `,
   styles: [
@@ -92,33 +96,34 @@ export class TimesheetsListComponent implements OnInit {
   currentTimesheet:any = null;
   currentIndex = -1;
   EmpName = '';
+  msgs: any[] = [];
+  subscription: Subscription;
 
-  constructor(private timesheetService: TimesheetsService, private interactionService: InteractionService) { }
+  constructor(private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
 
-  ngOnInit(): void {
-    this.retrieveTimesheets();
-    this.interactionService.sourceMsg$
-    .subscribe(
-      msg => {
-        if (msg === 'test message!' ) {
-          console.log('response!');
-        }
+    this.subscription = this.interactionService.getMsg().subscribe((msg: any) => {
+      if (msg) {
+        console.log(msg);
       }
-    )
+    });
+
   }
 
-  test() {
-    this.interactionService.sendMessage('test message!')
+ 
+  ngOnInit(): void {
+    this.retrieveTimesheets();
+    this.interactionService.getMsg()
+    //ProfileComponent.test.subscribe(x => console.log(x))
   }
 
   retrieveTimesheets(): void {
     this.timesheetService.getAll()
       .subscribe(
-        data => {
+        (data: any) => {
           this.timesheets = data;
           console.log(data);
         },
-        error => {
+        (error: any) => {
           console.log(error);
         });
   }
@@ -137,11 +142,11 @@ export class TimesheetsListComponent implements OnInit {
   removeAllTimesheets(): void {
     this.timesheetService.deleteAll()
       .subscribe(
-        response => {
+        (response:any) => {
           console.log(response);
           this.retrieveTimesheets();
         },
-        error => {
+        (error:any) => {
           console.log(error);
         });
   }
@@ -149,13 +154,17 @@ export class TimesheetsListComponent implements OnInit {
   searchName(): void {
     this.timesheetService.findByName(this.EmpName)
       .subscribe(
-        data => {
+        (data:any) => {
           this.timesheets = data;
           console.log(data);
         },
-        error => {
+        (error:any) => {
           console.log(error);
         });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

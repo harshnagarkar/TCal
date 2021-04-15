@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class InteractionService {
-  private _EmpIdSource = new Subject<String>();
-  sourceMsg$ = this._EmpIdSource.asObservable();
-  constructor() { }
-  sendMessage(msg: string) {
-    this._EmpIdSource.next(msg);
-  }
+    private subject = new Subject<any>();
+
+    sendMsg(msg: string) {
+        this.subject.next({ text: msg });
+    }
+
+    getMsg(): Observable<any> {
+        return this.subject.asObservable();
+    }
 }

@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "src/app/services/profile.service";
 import { InteractionService } from 'src/app/interaction.service';
+import { Observable, Subscriber } from 'rxjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  test = new Observable(
+    function subscribe(subscriber) {
+      subscriber.next("AAAAAAAAAAAAAA")
+    }
+  );
 
   employee={
     Emp_ID:"",
@@ -19,10 +26,14 @@ export class ProfileComponent implements OnInit {
     Phone:0
   }
 
+  sendMsg(): void {
+    this.interactionService.sendMsg('testing testing!');
+  }
+
   constructor(private pService : ProfileService, private interactionService: InteractionService) {
     this.employee.Emp_ID="6"
     let datacall = pService.get(this.employee.Emp_ID);
-    datacall.subscribe(data=>{
+    datacall.subscribe((data:any)=>{
 
       this.employee={
         Emp_ID:data[0].empId,
@@ -39,12 +50,14 @@ export class ProfileComponent implements OnInit {
 
    }
 
-  test() {
-    this.interactionService.sendMessage(this.employee.Emp_ID)
+  /*test() {
+    this.interactionService.sendMsg(this.employee.Emp_ID)
     console.log(this.employee.Emp_ID)
-  }
+  }*/
+
 
   ngOnInit(): void {
+    this.sendMsg()
   }
   
   save(){
