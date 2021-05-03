@@ -27,6 +27,7 @@ import { Observable, Subscription } from 'rxjs';
           >
             Search
           </button>
+        <app-authentication-button></app-authentication-button>
         </div>
       </div>
     </div>

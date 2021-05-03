@@ -4,12 +4,29 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-var corsOptions = {
+var jwt = require("express-jwt");
+var jwks = require("jwks-rsa");
+
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: 'https://dev-5pvlocxw.us.auth0.com/.well-known/jwks.json'
+}),
+audience: 'http://localhost:4200/timesheets',
+issuer: 'https://dev-5pvlocxw.us.auth0.com/',
+algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
+
+var corsOptions = { //Not used?
   // origin: "http://localhost:8080"
   origin: "http://localhost:3000"
 };
 
-app.use(cors());
+app.use(cors()); //Getting cors errors, need to fix
 
 const db = require("./app/models");
 db.mongoose

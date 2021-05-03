@@ -14,6 +14,13 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import { FormsModule } from '@angular/forms';
+import { AuthModule } from '@auth0/auth0-angular'; // Import the module from the SDK
+import { LoginButtonComponent } from './components/login-button/login-button.component';
+import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { SignupButtonComponent } from './components/signup-button/signup-button.component';
+import { AuthenticationButtonComponent } from './components/authentication-button/authentication-button.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -21,7 +28,11 @@ import { FormsModule } from '@angular/forms';
     ProfileComponent,
     AddTimesheetComponent,
     TimesheetDetailsComponent,
-    TimesheetsListComponent
+    TimesheetsListComponent,
+    LoginButtonComponent,
+    LogoutButtonComponent,
+    SignupButtonComponent,
+    AuthenticationButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +42,14 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule.forRoot({ // Import the module into the application, with configuration
+      domain: 'dev-5pvlocxw.us.auth0.com',
+      clientId: 'EQAeTplrCHxELsZBvEVRRYU7qcWmOSil',
+      httpInterceptor: {
+        allowedList: ['http://localhost:3000/api/*']
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
