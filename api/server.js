@@ -21,12 +21,21 @@ algorithms: ['RS256']
 
 app.use(jwtCheck);
 
-var corsOptions = { //Not used?
-  // origin: "http://localhost:8080"
-  origin: "http://localhost:3000"
-};
-
-app.use(cors()); //Getting cors errors, need to fix
+var whitelist = [
+  'http://localhost:4200',
+  'http://localhost:3000',
+  'dev-5pvlocxw.us.auth0.com'
+]
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error(`Origin: ${origin} is not allowed by CORS`))
+    }
+  }
+}
+app.use(cors(corsOptions));
 
 const db = require("./app/models");
 db.mongoose

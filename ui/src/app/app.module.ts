@@ -47,7 +47,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
       domain: 'dev-5pvlocxw.us.auth0.com',
       clientId: 'EQAeTplrCHxELsZBvEVRRYU7qcWmOSil',
       httpInterceptor: {
-        allowedList: ['http://localhost:3000/api/*']
+        allowedList: ['http://localhost:4200/api/*']
       }
     }),
   ],
