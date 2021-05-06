@@ -46,12 +46,17 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     AuthModule.forRoot({ // Import the module into the application, with configuration
       domain: 'dev-5pvlocxw.us.auth0.com',
       clientId: 'EQAeTplrCHxELsZBvEVRRYU7qcWmOSil',
+      audience: 'http://localhost:4200/timesheets',
       httpInterceptor: {
-        allowedList: ['http://localhost:4200/api/*']
+        allowedList: ['http://localhost:3000/api/*']
       }
     }),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthHttpInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
