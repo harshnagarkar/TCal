@@ -22,9 +22,8 @@ algorithms: ['RS256']
 app.use(jwtCheck);
 
 var whitelist = [
-  'http://localhost:4200',
-  'http://localhost:3000',
-  'dev-5pvlocxw.us.auth0.com'
+    'http://localhost:4200',
+    'http://localhost:8080'
 ]
 var corsOptions = {
   origin: function (origin, callback) {
@@ -59,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to books application." });
+  res.json({ message: "Timesheets app" });
 });
 
 require("./app/routes/book.routes")(app);
