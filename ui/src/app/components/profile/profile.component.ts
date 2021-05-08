@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "src/app/services/profile.service";
 import { InteractionService } from 'src/app/interaction.service';
 import { Observable, Subscriber } from 'rxjs';
+import { AuthService } from '@auth0/auth0-angular';
+import { stringify } from '@angular/compiler/src/util';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -30,8 +33,14 @@ export class ProfileComponent implements OnInit {
     this.interactionService.sendMsg('testing testing!');
   }
 
-  constructor(private pService : ProfileService, private interactionService: InteractionService) {
-    this.employee.Emp_ID="6"
+  constructor(private pService : ProfileService, private interactionService: InteractionService,public auth: AuthService) {
+    this.auth.isAuthenticated$.subscribe(res=>{
+      if(!res){
+      window.location.href="/index.html";
+      }
+    })
+    
+    this.employee.Emp_ID=String(this.pService.Eid);
     let datacall = pService.get(this.employee.Emp_ID);
     datacall.subscribe((data:any)=>{
 

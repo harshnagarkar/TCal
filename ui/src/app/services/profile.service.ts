@@ -22,6 +22,10 @@ export class ProfileService {
     return this.http.get(`${baseUrl}/?eid=${Emp_ID}`, httpOptions);
   }
 
+  getIDfromEmail(inemail:String): Observable<any> {
+    console.log(`${baseUrl}/email/?email=${inemail}`);
+    return this.http.get(`${baseUrl}/email/?email=${inemail}`, httpOptions);
+  }
 
   update(Emp_ID:string, data:any): Observable<any> {
     return this.http.post(`${baseUrl}`, data, httpOptions);

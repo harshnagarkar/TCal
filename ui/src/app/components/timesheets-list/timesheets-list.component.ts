@@ -3,6 +3,8 @@ import { TimesheetsService } from 'src/app/services/timesheets.service';
 import { InteractionService } from 'src/app/interaction.service';
 import { ProfileComponent } from 'src/app/components/profile/profile.component'
 import { Observable, Subscription } from 'rxjs';
+import {ProfileService} from "src/app/services/profile.service";
+
 /*import {
   test
 } from 'src/app/components/profile/profile.component';
@@ -100,7 +102,7 @@ export class TimesheetsListComponent implements OnInit {
   msgs: any[] = [];
   subscription: Subscription;
 
-  constructor(private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
+  constructor(private pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
 
     this.subscription = this.interactionService.getMsg().subscribe((msg: any) => {
       if (msg) {
@@ -127,6 +129,7 @@ export class TimesheetsListComponent implements OnInit {
         (error: any) => {
           console.log(error);
         });
+      console.log("EID"+this.pService.Eid)
   }
 
   refreshList(): void {

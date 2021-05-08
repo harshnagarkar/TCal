@@ -21,6 +21,7 @@ import { SignupButtonComponent } from './components/signup-button/signup-button.
 import { AuthenticationButtonComponent } from './components/authentication-button/authentication-button.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthHttpInterceptor,
     multi: true,
-  },],
-  bootstrap: [AppComponent]
+  },ProfileService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -5,7 +5,7 @@ import {TimesheetsListComponent } from './components/timesheets-list/timesheets-
 import {TimesheetDetailsComponent } from './components/timesheet-details/timesheet-details.component';
 import {AddTimesheetComponent } from './components/add-timesheet/add-timesheet.component';
 const routes: Routes = [
-{ path: '', redirectTo: 'timesheets', pathMatch: 'full' },
+// { path: '', redirectTo: 'timesheets', pathMatch: 'full' },
 { path: 'timesheets', component: TimesheetsListComponent },
 { path: 'timesheets/:id', component: TimesheetDetailsComponent },
 { path: 'add', component: AddTimesheetComponent },

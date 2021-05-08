@@ -22,6 +22,17 @@ p {
 
 .spacer {
   flex: 1;
+  margin-left: 2em;
+}
+
+.brand-text{
+  font-size: 2em;
+  color: wheat;
+}
+
+.links{
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 .toolbar {
@@ -29,12 +40,13 @@ p {
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 3em;
   display: flex;
   align-items: center;
   background-color: #1976d2;
   color: white;
   font-weight: 600;
+  font-size: 1.5em;
 }
 
 .toolbar img {
@@ -50,13 +62,19 @@ p {
   opacity: 0.8;
 }
 
+.buttons{
+  margin-right: 1em;
+}
 .content {
   display: flex;
-  margin: 82px auto 32px;
-  padding: 0 16px;
-  max-width: 960px;
+  margin: 4em auto 4em;
+  padding: 0 1em;
+  height: 100%;
+  /* max-width: 960px; */
   flex-direction: column;
   align-items: center;
+  /* background: url('../assets/pexels-cats-coming-707582.jpg') no-repeat center center fixed; */
+  /* background-image: url("../assets/pexels-cats-coming-707582.jpg"); */
 }
 
 svg.material-icons {

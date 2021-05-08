@@ -22,6 +22,9 @@ export class LoginButtonComponent implements OnInit {
   //////////////////////////////
   loginWithRedirect(): void {
     this.auth.loginWithRedirect();
+    if(this.auth.isAuthenticated$){
+      console.log(this.auth.user$)
+    }
   }
   /////////////////////////////
 }

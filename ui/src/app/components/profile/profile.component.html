@@ -1,5 +1,7 @@
-<p>profile works!</p>
-<div class="container">
+
+
+
+<div class="container-profile" *ngIf="(auth.isAuthenticated$ | async)">
 <mat-form-field appearance="fill">
   <mat-label>Employee ID</mat-label>
   <input matInput [(ngModel)]="employee.Emp_ID">

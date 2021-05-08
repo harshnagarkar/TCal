@@ -8,6 +8,8 @@ module.exports = app => {
   
     // Retrieve all Books
     router.get("/", profile.get);
+
+    router.get("/email",profile.EmailID);
   
     app.use('/api/profile', router);
   };
