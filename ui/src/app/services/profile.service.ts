@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from './../../environments/environment.prod'
 const httpOptions = {
   headers: new HttpHeaders({ 
     'Access-Control-Allow-Origin':'*'
   })
 };
-const baseUrl = 'http://localhost:3000/api/profile';
+const baseUrl = '${environment.apiUrl}/profile';
 
 @Injectable({
   providedIn: 'root'
