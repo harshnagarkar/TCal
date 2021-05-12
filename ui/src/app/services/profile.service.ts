@@ -7,7 +7,7 @@ const httpOptions = {
     'Access-Control-Allow-Origin':'*'
   })
 };
-const baseUrl = `${environment.apiUrl}/profile`;
+const baseUrl = `${environment.apiUrl}/api/profile`;
 
 @Injectable({
   providedIn: 'root'
