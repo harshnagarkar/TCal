@@ -24,6 +24,7 @@ app.use(jwtCheck);
 var whitelist = [
     'http://localhost:4200',
     'http://localhost:8080'
+    'https://csci620-team7-ui.azurewebsites.net'
 ]
 var corsOptions = {
   origin: function (origin, callback) {
