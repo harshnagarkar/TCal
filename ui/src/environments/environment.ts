@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://csci620-timesheets-api.azurewebsites.net'
+  apiUrl: 'https://csci620-team7-api.azurewebsites.net'
 };
 
 /*
