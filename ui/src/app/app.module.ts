@@ -22,7 +22,7 @@ import { AuthenticationButtonComponent } from './components/authentication-butto
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ProfileService } from './services/profile.service';
-import { environment } from './../../environments/environment.prod'
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { environment } from './../../environments/environment.prod'
       clientId: 'EQAeTplrCHxELsZBvEVRRYU7qcWmOSil',
       audience: 'http://localhost:4200/timesheets',
       httpInterceptor: {
-        allowedList: ['http://localhost:3000/api/*','${environment.apiUrl}/*';]
+        allowedList: [`${environment.apiUrl}/*`],
       }
     }),
   ],
