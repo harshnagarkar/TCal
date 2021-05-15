@@ -12,12 +12,6 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class ProfileComponent implements OnInit {
 
-  test = new Observable(
-    function subscribe(subscriber) {
-      subscriber.next("AAAAAAAAAAAAAA")
-    }
-  );
-
   employee={
     Emp_ID:"",
     FirstName:"",
@@ -58,12 +52,6 @@ export class ProfileComponent implements OnInit {
     })
 
    }
-
-  /*test() {
-    this.interactionService.sendMsg(this.employee.Emp_ID)
-    console.log(this.employee.Emp_ID)
-  }*/
-
 
   ngOnInit(): void {
     this.sendMsg()

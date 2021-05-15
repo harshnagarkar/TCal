@@ -10,17 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     <h4>Timesheet</h4>
     <form>
       <div class="form-group">
-        <label for="EmpName">EmpName</label>
-        <input
-          type="text"
-          class="form-control"
-          id="EmpName"
-          [(ngModel)]="currentTimesheet.EmpName"
-          name="EmpName"
-        />
-      </div>
-      <div class="form-group">
-        <label for="Month">Month</label>
+        <label for="Month">Date</label>
         <input
           type="text"
           class="form-control"
@@ -30,17 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         />
       </div>
       <div class="form-group">
-        <label for="Emp_ID">CSU Chico ID Number</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Emp_ID"
-          [(ngModel)]="currentTimesheet.Emp_ID"
-          name="Emp_ID"
-        />
-      </div>
-      <div class="form-group">
-        <label for="TimeIn">TimeIn</label>
+        <label for="TimeIn">Time In</label>
         <input
           type="text"
           class="form-control"
@@ -50,7 +30,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         />
       </div>
       <div class="form-group">
-        <label for="TimeOut">TimeOut</label>
+        <label for="TimeOut">Time Out</label>
         <input
           type="text"
           class="form-control"
@@ -69,26 +49,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         name="NumHours"
       />
     </div>
-      <div class="form-group">
-        <label><strong>Status:</strong></label>
-        {{ currentTimesheet.current ? "Current" : "Pending" }}
-      </div>
     </form>
-
-    <button
-      class="badge badge-primary mr-2"
-      *ngIf="currentTimesheet.current"
-      (click)="updateCurrent(false)"
-    >
-      UnPublish
-    </button>
-    <button
-      *ngIf="!currentTimesheet.current"
-      class="badge badge-primary mr-2"
-      (click)="updateCurrent(true)"
-    >
-      Publish
-    </button>
 
     <button class="badge badge-danger mr-2" (click)="deleteTimesheet()">
       Delete
@@ -144,8 +105,7 @@ export class TimesheetDetailsComponent implements OnInit {
       Emp_ID: this.currentTimesheet.Emp_ID,
       TimeIn: this.currentTimesheet.TimeIn,
       TimeOut: this.currentTimesheet.TimeOut,
-      NumHours: this.currentTimesheet.NumHours,
-      current: status
+      NumHours: this.currentTimesheet.NumHours
     };
 
     this.timesheetService.update(this.currentTimesheet._id, data)

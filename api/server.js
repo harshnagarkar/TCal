@@ -62,10 +62,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Timesheets app" });
 });
 
-require("./app/routes/book.routes")(app);
 require("./app/routes/profile.routes")(app);
 require("./app/routes/timesheet.routes")(app);
-//require('./app/routes/book.routes')(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

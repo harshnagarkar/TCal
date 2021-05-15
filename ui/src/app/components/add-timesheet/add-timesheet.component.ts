@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
+import {ProfileService} from "src/app/services/profile.service";
+import {IdentifierService} from "src/app/services/identifier.service";
 
 @Component({
   selector: 'app-add-timesheet',
@@ -13,18 +15,7 @@ import { TimesheetsService } from 'src/app/services/timesheets.service';
   <div class="submit-form">
     <div *ngIf="!submitted">
       <div class="form-group">
-        <label for="EmpName">EmpName</label>
-        <input
-          type="text"
-          class="form-control"
-          id="EmpName"
-          required
-          matInput [(ngModel)]="timesheet.EmpName"
-          name="EmpName"
-        />
-      </div>
-      <div class="form-group">
-        <label for="Month">Month</label>
+        <label for="Month">Date</label>
         <input
           type="text"
           class="form-control"
@@ -32,16 +23,6 @@ import { TimesheetsService } from 'src/app/services/timesheets.service';
           required
           matInput [(ngModel)]="timesheet.Month"
           name="Month"
-        />
-      </div>
-      <div class="form-group">
-        <label for="Emp_ID">CSU Chico ID #</label>
-        <input
-          class="form-control"
-          id="Emp_ID"
-          required
-          matInput [(ngModel)]="timesheet.Emp_ID"
-          name="Emp_ID"
         />
       </div>
       <div class="form-group">
@@ -75,7 +56,7 @@ import { TimesheetsService } from 'src/app/services/timesheets.service';
         />
       </div>
 
-      <button (click)="saveTimesheet()" class="btn btn-success">Submit</button>
+      <button (click)="saveTimesheet()" class="btn btn-success">Submit Entry</button>
     </div>
 
     <div *ngIf="submitted">
@@ -97,24 +78,26 @@ export class AddTimesheetComponent implements OnInit {
     TimeIn: '',
     TimeOut: '',
     NumHours: '',
-    current: false
+    Identifier: ''
   };
   submitted = false;
-
-  constructor(private timesheetService: TimesheetsService) { }
+  userID = this.identifier.getIdentifier();
+  
+  constructor(private timesheetService: TimesheetsService, private pService : ProfileService, public identifier: IdentifierService) { }
 
   ngOnInit(): void {
+    //console.log("HERE IT IS:",this.userID);
   }
 
   saveTimesheet(): void {
     const data = {
-      EmpName: this.timesheet.EmpName,
-      Emp_ID: this.timesheet.Emp_ID,
+      EmpName: this.userID,
+      Emp_ID: this.pService.Eid,
       Month: this.timesheet.Month,
       TimeIn: this.timesheet.TimeIn,
       TimeOut: this.timesheet.TimeOut,
       NumHours: this.timesheet.NumHours,
-      current: this.timesheet.current
+      Identifier: this.userID
     };
 
     this.timesheetService.create(data)
@@ -137,7 +120,7 @@ export class AddTimesheetComponent implements OnInit {
       TimeIn: '',
       TimeOut: '',
       NumHours: '',
-      current: false
+      Identifier: '',
     };
   }
 

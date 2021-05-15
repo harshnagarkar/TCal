@@ -9,7 +9,7 @@ module.exports = mongoose => {
           TimeIn: String,
           TimeOut: String,
           NumHours: String,
-          current: Boolean
+          Identifier: String
         },
         { timestamps: true }
       )

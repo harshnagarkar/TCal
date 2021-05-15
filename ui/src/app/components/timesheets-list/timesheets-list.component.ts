@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
 import { InteractionService } from 'src/app/interaction.service';
-import { ProfileComponent } from 'src/app/components/profile/profile.component'
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import {ProfileService} from "src/app/services/profile.service";
+import {IdentifierService} from "src/app/services/identifier.service"
 
-/*import {
-  test
-} from 'src/app/components/profile/profile.component';
-*/
 @Component({
   selector: 'app-timesheets-list',
   template: `
@@ -42,12 +38,12 @@ import {ProfileService} from "src/app/services/profile.service";
           [class.active]="i == currentIndex"
           (click)="setActiveTimesheet(timesheet, i)"
         >
-          {{ timesheet.EmpName }}
+          {{ timesheet.Month }}
         </li>
       </ul>
 
       <a routerLink="/add"><button class="btn btn-success pull-right" > 
-      Add New Timesheet
+      Add New Entry
       </button></a>
 
     </div>
@@ -55,18 +51,18 @@ import {ProfileService} from "src/app/services/profile.service";
       <div *ngIf="currentTimesheet">
         <h4>Timesheet</h4>
         <div>
-          <label><strong>EmpName:</strong></label> {{ currentTimesheet.EmpName }}
+          <label><strong>Auth Token ID:</strong></label> {{ currentTimesheet.EmpName }}
         </div>
         <div>
           <label><strong>CSU Chico ID Number:</strong></label>
           {{ currentTimesheet.Emp_ID }}
         </div>
         <div>
-          <label><strong>TimeIn:</strong></label>
+          <label><strong>Time In:</strong></label>
           {{ currentTimesheet.TimeIn }}
         </div>
         <div>
-          <label><strong>TimeOut:</strong></label>
+          <label><strong>Time Out:</strong></label>
           {{ currentTimesheet.TimeOut }}
         </div>
         <div>
@@ -74,15 +70,20 @@ import {ProfileService} from "src/app/services/profile.service";
           {{ currentTimesheet.NumHours }}
         </div>
         <div>
-          <label><strong>Status:</strong></label>
-          {{ currentTimesheet.current ? "Current" : "Pending" }}
+          <label><strong>Month:</strong></label>
+          {{ currentTimesheet.Month }}
         </div>
-
+        <div>
+          <label><strong>TOKEN:</strong></label>
+          {{ currentTimesheet.Identifier }}
+        </div>
         <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
           Edit
         </a>
       </div>
-
+      <ng-template #doThis>
+      <p>SORRY NOTHING</p>
+      </ng-template>
       <div *ngIf="!currentTimesheet">
         <br />
         <p>Please click on a Timesheet...</p>
@@ -99,10 +100,12 @@ export class TimesheetsListComponent implements OnInit {
   currentTimesheet:any = null;
   currentIndex = -1;
   EmpName = '';
+  userid = this.identifier.getIdentifier();
+  loginId = String(this.pService.Eid);
   msgs: any[] = [];
   subscription: Subscription;
 
-  constructor(private pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
+  constructor(public pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService, public identifier: IdentifierService) { 
 
     this.subscription = this.interactionService.getMsg().subscribe((msg: any) => {
       if (msg) {
@@ -112,11 +115,9 @@ export class TimesheetsListComponent implements OnInit {
 
   }
 
- 
   ngOnInit(): void {
     this.retrieveTimesheets();
     this.interactionService.getMsg()
-    //ProfileComponent.test.subscribe(x => console.log(x))
   }
 
   retrieveTimesheets(): void {
@@ -129,7 +130,7 @@ export class TimesheetsListComponent implements OnInit {
         (error: any) => {
           console.log(error);
         });
-      console.log("EID"+this.pService.Eid)
+      console.log("EID"+this.loginId)
   }
 
   refreshList(): void {
