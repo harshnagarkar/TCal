@@ -26,7 +26,7 @@ import {IdentifierService} from "src/app/services/identifier.service";
         />
       </div>
       <div class="form-group">
-      <label for="TimeIn">TimeIn</label>
+      <label for="TimeIn">Time In</label>
       <input
         class="form-control"
         id="TimeIn"
@@ -36,7 +36,7 @@ import {IdentifierService} from "src/app/services/identifier.service";
         />
       </div>
       <div class="form-group">
-      <label for="TimeOut">TimeOut</label>
+      <label for="TimeOut">Time Out</label>
       <input
         class="form-control"
         id="TimeOut"
@@ -46,7 +46,7 @@ import {IdentifierService} from "src/app/services/identifier.service";
         />
       </div>
       <div class="form-group">
-      <label for="NumHours">NumHours</label>
+      <label for="NumHours">Hours</label>
       <input
         class="form-control"
         id="NumHours"
@@ -60,7 +60,7 @@ import {IdentifierService} from "src/app/services/identifier.service";
     </div>
 
     <div *ngIf="submitted">
-      <h4>You submitted successfully!</h4>
+      <h4>Changes submitted successfully!</h4>
       <button class="btn btn-success" (click)="newTimesheet()">Add</button>
     </div>
   </div>

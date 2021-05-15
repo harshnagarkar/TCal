@@ -31,16 +31,18 @@ import {IdentifierService} from "src/app/services/identifier.service"
     </div>
     <div class="col-md-6">
       <h4>Timesheets List</h4>
+      <div *ngFor="let timesheet of timesheets; let i = index">
       <ul class="list-group">
         <li
           class="list-group-item"
-          *ngFor="let timesheet of timesheets; let i = index"
+          *ngIf="timesheet.EmpName == this.userid"
           [class.active]="i == currentIndex"
           (click)="setActiveTimesheet(timesheet, i)"
         >
           {{ timesheet.Month }}
         </li>
       </ul>
+      </div>
 
       <a routerLink="/add"><button class="btn btn-success pull-right" > 
       Add New Entry
@@ -49,10 +51,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
     </div>
     <div class="col-md-6">
       <div *ngIf="currentTimesheet">
-        <h4>Timesheet</h4>
-        <div>
-          <label><strong>Auth Token ID:</strong></label> {{ currentTimesheet.EmpName }}
-        </div>
+        <h4>Entry Details</h4>
         <div>
           <label><strong>CSU Chico ID Number:</strong></label>
           {{ currentTimesheet.Emp_ID }}
@@ -66,16 +65,12 @@ import {IdentifierService} from "src/app/services/identifier.service"
           {{ currentTimesheet.TimeOut }}
         </div>
         <div>
-          <label><strong>NumHours:</strong></label>
+          <label><strong>Hours:</strong></label>
           {{ currentTimesheet.NumHours }}
         </div>
         <div>
           <label><strong>Month:</strong></label>
           {{ currentTimesheet.Month }}
-        </div>
-        <div>
-          <label><strong>TOKEN:</strong></label>
-          {{ currentTimesheet.Identifier }}
         </div>
         <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
           Edit
@@ -86,7 +81,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
       </ng-template>
       <div *ngIf="!currentTimesheet">
         <br />
-        <p>Please click on a Timesheet...</p>
+        <p>Click on an entry to view details.</p>
       </div>
     </div>
   </div>
@@ -118,6 +113,8 @@ export class TimesheetsListComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveTimesheets();
     this.interactionService.getMsg()
+    this.userid = this.identifier.getIdentifier()
+    console.log("ID is:",this.userid);
   }
 
   retrieveTimesheets(): void {

@@ -40,7 +40,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         />
       </div>
       <div class="form-group">
-      <label for="NumHours">NumHours</label>
+      <label for="NumHours">Hours</label>
       <input
         type="text"
         class="form-control"
