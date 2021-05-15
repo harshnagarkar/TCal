@@ -28,7 +28,7 @@ export class IdentifierService {
       //console.log("ID ONLY:",this.decode)
       return this.decode
     } else {
-      console.log("TOKEN ERROR")
+      //console.log("TOKEN ERROR")
       return "ERROR"
     }
   }

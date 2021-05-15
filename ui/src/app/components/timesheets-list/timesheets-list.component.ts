@@ -114,7 +114,7 @@ export class TimesheetsListComponent implements OnInit {
     this.retrieveTimesheets();
     this.interactionService.getMsg()
     this.userid = this.identifier.getIdentifier()
-    console.log("ID is:",this.userid);
+    //console.log("ID is:",this.userid);
   }
 
   retrieveTimesheets(): void {
@@ -122,12 +122,12 @@ export class TimesheetsListComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.timesheets = data;
-          console.log(data);
+          //console.log(data);
         },
         (error: any) => {
           console.log(error);
         });
-      console.log("EID"+this.loginId)
+      //console.log("EID"+this.loginId)
   }
 
   refreshList(): void {
@@ -145,7 +145,7 @@ export class TimesheetsListComponent implements OnInit {
     this.timesheetService.deleteAll()
       .subscribe(
         (response:any) => {
-          console.log(response);
+          //console.log(response);
           this.retrieveTimesheets();
         },
         (error:any) => {
@@ -158,7 +158,7 @@ export class TimesheetsListComponent implements OnInit {
       .subscribe(
         (data:any) => {
           this.timesheets = data;
-          console.log(data);
+          //console.log(data);
         },
         (error:any) => {
           console.log(error);

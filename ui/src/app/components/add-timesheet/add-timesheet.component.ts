@@ -103,7 +103,7 @@ export class AddTimesheetComponent implements OnInit {
     this.timesheetService.create(data)
       .subscribe(
         response => {
-          console.log(response);
+          //console.log(response);
           this.submitted = true;
         },
         error => {

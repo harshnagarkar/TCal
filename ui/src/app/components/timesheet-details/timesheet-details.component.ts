@@ -92,7 +92,7 @@ export class TimesheetDetailsComponent implements OnInit {
       .subscribe(
         data => {
           this.currentTimesheet = data;
-          console.log(data);
+          //console.log(data);
         },
         error => {
           console.log(error);
@@ -112,7 +112,7 @@ export class TimesheetDetailsComponent implements OnInit {
       .subscribe(
         response => {
           this.currentTimesheet.current = status;
-          console.log(response);
+          //console.log(response);
         },
         error => {
           console.log(error);
@@ -123,7 +123,7 @@ export class TimesheetDetailsComponent implements OnInit {
     this.timesheetService.update(this.currentTimesheet._id, this.currentTimesheet)
       .subscribe(
         response => {
-          console.log(response);
+          //console.log(response);
           this.message = 'The timesheet was updated successfully!';
         },
         error => {
@@ -135,7 +135,7 @@ export class TimesheetDetailsComponent implements OnInit {
     this.timesheetService.delete(this.currentTimesheet._id)
       .subscribe(
         response => {
-          console.log(response);
+          //console.log(response);
           this.router.navigate(['/timesheets']);
         },
         error => {
