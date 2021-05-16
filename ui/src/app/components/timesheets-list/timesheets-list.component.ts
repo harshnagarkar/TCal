@@ -10,9 +10,8 @@ import { MatButton } from '@angular/material/button';
   selector: 'app-timesheets-list',
   template: `
 
+  
   <div class="list row">
-
-  <app-authentication-button></app-authentication-button>
 
   <div class="col-md-6">
     <h4>All Entries</h4>
@@ -58,9 +57,9 @@ import { MatButton } from '@angular/material/button';
         <label><strong>Month:</strong></label>
         {{ currentTimesheet.Month }}
       </div>
-      <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
-        Edit
-      </a>
+      <a routerLink="/timesheets/{{ currentTimesheet._id }}"><button style="padding:3px; width: 60px"> 
+      Edit
+      </button></a>
     </div>
     <div *ngIf="!currentTimesheet">
       <br />
@@ -70,7 +69,8 @@ import { MatButton } from '@angular/material/button';
 </div>
   `,
   styles: [
-    
+    'h4 {color: rgb(2, 128, 8); font-weight: bold; font-size: large; margin: 15px;}',
+    'li {color: rgb(6, 134, 128); font-weight: bold;}'
   ]
 })
 export class TimesheetsListComponent implements OnInit {

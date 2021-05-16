@@ -2,4 +2,5 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-button {color: rgb(255, 255, 255); background-color: rgb(14, 117, 185); padding: 10px; cursor: pointer; border: 2px solid; border-color: rgb(104, 218, 233);}
+button {color: rgb(244, 255, 255); font-weight: bold; background-color: rgb(4, 122, 4); padding: 10px; cursor: pointer; border: solid rgba(48, 212, 122, 0.884); margin: 15px;}
+h3 {color: rgb(6, 134, 128); font-weight: bold;}
