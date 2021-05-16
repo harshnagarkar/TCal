@@ -27,7 +27,7 @@ p {
 
 .brand-text{
   font-size: 2em;
-  color: wheat;
+  color: rgb(255, 255, 255);
 }
 
 .links{
@@ -43,8 +43,8 @@ p {
   height: 3em;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
+  background-color: #11a725e5;
+  color: rgb(175, 255, 202);
   font-weight: 600;
   font-size: 1.5em;
 }
