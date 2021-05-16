@@ -7,6 +7,7 @@ import {ProfileService} from "src/app/services/profile.service";
   selector: 'app-authentication-button',
   templateUrl: './authentication-button.component.html',
   styles: [
+    '{color: rgb(255, 255, 255); background-color: rgb(27, 155, 55);}'
   ]
 })
 export class AuthenticationButtonComponent implements OnInit {

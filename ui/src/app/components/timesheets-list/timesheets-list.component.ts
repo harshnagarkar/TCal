@@ -6,40 +6,16 @@ import {ProfileService} from "src/app/services/profile.service";
 import {IdentifierService} from "src/app/services/identifier.service"
 import { MatButton } from '@angular/material/button';
 
-export interface TimesheetElement {
-  Month: String;
-  TimeIn: string;
-  TimeOut: String;
-  NumHours: String;
-}
-
 @Component({
   selector: 'app-timesheets-list',
   template: `
 
   <div class="list row">
-  <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by EmpName"
-        [(ngModel)]="EmpName"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchName()"
-        >
-          Search
-        </button>
-      <app-authentication-button></app-authentication-button>
-      </div>
-    </div>
-  </div>
+
+  <app-authentication-button></app-authentication-button>
+
   <div class="col-md-6">
-    <h4>Timesheets List</h4>
+    <h4>All Entries</h4>
     <div *ngFor="let timesheet of timesheets; let i = index">
     <ul class="list-group">
       <li
@@ -58,6 +34,7 @@ export interface TimesheetElement {
     </button></a>
 
   </div>
+
   <div class="col-md-6">
     <div *ngIf="currentTimesheet">
       <h4>Entry Details</h4>
@@ -85,9 +62,6 @@ export interface TimesheetElement {
         Edit
       </a>
     </div>
-    <ng-template #doThis>
-    <p>SORRY NOTHING</p>
-    </ng-template>
     <div *ngIf="!currentTimesheet">
       <br />
       <p>Click on an entry to view details.</p>
@@ -96,6 +70,7 @@ export interface TimesheetElement {
 </div>
   `,
   styles: [
+    
   ]
 })
 export class TimesheetsListComponent implements OnInit {

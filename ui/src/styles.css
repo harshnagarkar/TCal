@@ -2,3 +2,4 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button {color: rgb(255, 255, 255); background-color: rgb(14, 117, 185); padding: 10px; cursor: pointer; border: 2px solid; border-color: rgb(104, 218, 233);}
