@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
+import {MatTableModule} from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@auth0/auth0-angular'; // Import the module from the SDK
 import { LoginButtonComponent } from './components/login-button/login-button.component';
@@ -22,7 +23,7 @@ import { AuthenticationButtonComponent } from './components/authentication-butto
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ProfileService } from './services/profile.service';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { environment } from '../environments/environment'
     MatInputModule,
     FormsModule,
     HttpClientModule,
+    MatTableModule,
     AuthModule.forRoot({ // Import the module into the application, with configuration
       domain: 'dev-5pvlocxw.us.auth0.com',
       clientId: 'EQAeTplrCHxELsZBvEVRRYU7qcWmOSil',

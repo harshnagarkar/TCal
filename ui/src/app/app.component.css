@@ -72,11 +72,8 @@ p {
   height: 100%;
   background-image: url("/assets/pexels-cats-coming-707582.jpg");
   background-size: 100% 100%;
-  /* max-width: 960px; */
   flex-direction: column;
   align-items: center;
-  /* background: url('../assets/pexels-cats-coming-707582.jpg') no-repeat center center fixed; */
-  /* background-image: url("../assets/pexels-cats-coming-707582.jpg"); */
 }
 
 svg.material-icons {
