@@ -9,9 +9,6 @@ module.exports = app => {
     // Retrieve all Timesheets
     router.get("/", timesheets.findAll);
   
-    // Retrieve all current Timesheets
-    router.get("/current", timesheets.findAllCurrent);
-  
     // Retrieve a single Timesheet with id
     router.get("/:id", timesheets.findOne);
   

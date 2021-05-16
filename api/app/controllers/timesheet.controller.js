@@ -3,8 +3,8 @@ const Timesheet = db.timesheets;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.EmpName) {
-      res.status(400).send({ message: "You must include a name!" });
+    if (!req.body.Month) {
+      res.status(400).send({ message: "You must include a date!" });
       return;
     }
   
@@ -16,7 +16,6 @@ exports.create = (req, res) => {
       TimeIn: req.body.TimeIn,
       TimeOut: req.body.TimeOut,
       NumHours: req.body.NumHours,
-      current: req.body.current ? req.body.current : false
     });
   
     // Save Timesheet in the database
@@ -121,20 +120,7 @@ exports.create = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Error, unable to remove all timesheet."
-        });
-      });
-  };
-
-  exports.findAllCurrent = (req, res) => {
-    Timesheet.find({ current: true })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "An error occurred while retrieving timesheets."
+            err.message || "Error, unable to remove all timesheets."
         });
       });
   };

@@ -101,8 +101,6 @@ export class TimesheetDetailsComponent implements OnInit {
 
   updateCurrent(status:any): void {
     const data = {
-      EmpName: this.currentTimesheet.EmpName,
-      Emp_ID: this.currentTimesheet.Emp_ID,
       TimeIn: this.currentTimesheet.TimeIn,
       TimeOut: this.currentTimesheet.TimeOut,
       NumHours: this.currentTimesheet.NumHours

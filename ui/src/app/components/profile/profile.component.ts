@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "src/app/services/profile.service";
-import { InteractionService } from 'src/app/interaction.service';
 import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 import { stringify } from '@angular/compiler/src/util';
@@ -23,11 +22,7 @@ export class ProfileComponent implements OnInit {
     Phone:0
   }
 
-  sendMsg(): void {
-    this.interactionService.sendMsg('testing testing!');
-  }
-
-  constructor(private pService : ProfileService, private interactionService: InteractionService,public auth: AuthService) {
+  constructor(private pService : ProfileService,public auth: AuthService) {
     this.auth.isAuthenticated$.subscribe(res=>{
       if(!res){
       window.location.href="/index.html";
@@ -54,7 +49,7 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.sendMsg()
+  
   }
   
   save(){

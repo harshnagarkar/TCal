@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
-import { InteractionService } from 'src/app/interaction.service';
-import { Subscription } from 'rxjs';
 import {ProfileService} from "src/app/services/profile.service";
 import {IdentifierService} from "src/app/services/identifier.service"
-import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-timesheets-list',
   template: `
 
-  
   <div class="list row">
 
   <div class="col-md-6">
@@ -63,7 +59,7 @@ import { MatButton } from '@angular/material/button';
     </div>
     <div *ngIf="!currentTimesheet">
       <br />
-      <p>Click on an entry to view details.</p>
+      <p>Click on an entry to view details and edit.</p>
     </div>
   </div>
 </div>
@@ -82,28 +78,15 @@ export class TimesheetsListComponent implements OnInit {
   userid = this.identifier.getIdentifier();
   loginId = String(this.pService.Eid);
   msgs: any[] = [];
-  subscription: Subscription;
   displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
 
-  constructor(public pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService, public identifier: IdentifierService) { 
-
-    this.subscription = this.interactionService.getMsg().subscribe((msg: any) => {
-      if (msg) {
-        console.log(msg);
-      }
-    });
+  constructor(public pService : ProfileService,private timesheetService: TimesheetsService, public identifier: IdentifierService) { 
 
   }
 
   ngOnInit(): void {
     this.retrieveTimesheets();
-    this.interactionService.getMsg()
     this.userid = this.identifier.getIdentifier()
-    //console.log("ID is:",this.userid);
-  }
-
-  editEntry(): void {
-    console.log("click!")
   }
 
   retrieveTimesheets(): void {
@@ -111,12 +94,10 @@ export class TimesheetsListComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.timesheets = data;
-          //console.log(data);
         },
         (error: any) => {
           console.log(error);
         });
-      //console.log("EID"+this.loginId)
   }
 
   refreshList(): void {
@@ -134,7 +115,6 @@ export class TimesheetsListComponent implements OnInit {
     this.timesheetService.deleteAll()
       .subscribe(
         (response:any) => {
-          //console.log(response);
           this.retrieveTimesheets();
         },
         (error:any) => {
@@ -147,7 +127,6 @@ export class TimesheetsListComponent implements OnInit {
       .subscribe(
         (data:any) => {
           this.timesheets = data;
-          //console.log(data);
         },
         (error:any) => {
           console.log(error);
@@ -155,7 +134,6 @@ export class TimesheetsListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
 }
