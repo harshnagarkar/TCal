@@ -7,7 +7,6 @@ import {IdentifierService} from "src/app/services/identifier.service";
   selector: 'app-add-timesheet',
   template: `
   <div style="width: 400px; margin: auto;">
-  
   <a routerLink="/timesheets"><button class="btn btn-success pull-right" > 
   Back to Timesheet List
   </button></a><br><br>

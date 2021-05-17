@@ -5,9 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-timesheet-details',
   template: `
+  <br>
+  <br>
   <div style="width: 400px; margin: auto;">
   <div *ngIf="currentTimesheet" class="edit-form">
-    <h4>Timesheet</h4>
+    <h1>Timesheet</h1>
     <form>
       <div class="form-group">
         <label for="Month">Date</label>
@@ -69,8 +71,10 @@ import { ActivatedRoute, Router } from '@angular/router';
     <br />
     <p>Cannot access this Timesheet...</p>
   </div>
-</div>  `,
+</div>  
+`,
   styles: [
+    'input {color: rgb(6, 134, 128);}'
   ]
 })
 export class TimesheetDetailsComponent implements OnInit {

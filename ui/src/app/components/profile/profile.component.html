@@ -2,48 +2,48 @@
 
 
 <div class="container-profile" *ngIf="(auth.isAuthenticated$ | async)">
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Employee ID</mat-label>
   <input matInput [(ngModel)]="employee.Emp_ID">
 </mat-form-field>
 &nbsp;&nbsp;
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
     <input matInput [(ngModel)]="employee.Email">
   </mat-form-field>  
 
 <br>
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>FirstName</mat-label>
   <input matInput [(ngModel)]="employee.FirstName">
 </mat-form-field>
 &nbsp;&nbsp;
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Lastname</mat-label>
   <input matInput [(ngModel)]="employee.LastName">
 </mat-form-field>
 <br>
 
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Department</mat-label>
   <input matInput [(ngModel)]="employee.Department">
 </mat-form-field>
 &nbsp;&nbsp;
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Position</mat-label>
   <input matInput [(ngModel)]="employee.Position">
 </mat-form-field>
 <br>
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Pay Rate</mat-label>
   <input matInput [(ngModel)]="employee.Pay_Rate">
 </mat-form-field>
 &nbsp;&nbsp;
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
   <mat-label>Phone</mat-label>
   <input matInput [(ngModel)]="employee.Phone">
 </mat-form-field>
 
 <br>
-<button mat-button color="primary" (click)="save()" >Save</button>
+<button (click)="save()" >Save</button>
 </div>
