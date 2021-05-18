@@ -66,7 +66,8 @@ import {IdentifierService} from "src/app/services/identifier.service"
   `,
   styles: [
     'h4 {color: rgb(2, 128, 8); font-weight: bold; font-size: large; margin: 15px;}',
-    'li {color: rgb(6, 134, 128); font-weight: bold;}'
+    'li {color: rgb(6, 134, 128); font-weight: bold;}',
+    'label {color: rgb(6, 134, 128); margin-right: 1px;}',
   ]
 })
 export class TimesheetsListComponent implements OnInit {
@@ -81,7 +82,6 @@ export class TimesheetsListComponent implements OnInit {
   displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
 
   constructor(public pService : ProfileService,private timesheetService: TimesheetsService, public identifier: IdentifierService) { 
-
   }
 
   ngOnInit(): void {
@@ -107,8 +107,12 @@ export class TimesheetsListComponent implements OnInit {
   }
 
   setActiveTimesheet(timesheet:any, index:any): void {
-    this.currentTimesheet = timesheet;
-    this.currentIndex = index;
+    if (timesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
+        this.currentTimesheet = timesheet;
+        this.currentIndex = index;
+    } else {
+        console.log("Error: Not Authorized")
+    }
   }
 
   removeAllTimesheets(): void {
