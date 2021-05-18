@@ -29,7 +29,7 @@ export class TimesheetsService {
   }
 
   update(id:any, data:any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, httpOptions, data);
+    return this.http.put(`${baseUrl}/${id}`, data, httpOptions);
   }
 
   delete(id:any): Observable<any> {
