@@ -168,11 +168,7 @@ export class TimesheetsListComponent implements OnInit {
   // }
 
   setActiveTimesheet(timesheet: any) {
-    if (timesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
       this.currentTimesheet = timesheet;
-    } else {
-      console.log("Error: Not Authorized")
-    }
   }
 
   removeAllTimesheets(): void { //not needed
