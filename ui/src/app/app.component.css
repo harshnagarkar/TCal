@@ -80,6 +80,7 @@ p {
   /* margin-right: 1em; */
   align-items: flex-end;
   justify-items: flex-end;
+  margin-left: 2em;
 }
 .content {
   display: flex;
