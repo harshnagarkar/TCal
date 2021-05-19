@@ -3,7 +3,7 @@ import { TimesheetsService } from 'src/app/services/timesheets.service';
 import { ProfileService } from "src/app/services/profile.service";
 import { IdentifierService } from "src/app/services/identifier.service"
 import { AuthService } from '@auth0/auth0-angular';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface TimesheetElement {
   Month: string;
@@ -19,7 +19,9 @@ export interface TimesheetElement {
   <br>
   <div class="list row">
   <div class="col-md-6">
+  
   <div *ngIf="currentTimesheet">
+  <mat-card>
     <h4>Timesheet</h4>
     <div>
       <label><strong>CSU Chico ID Number:</strong></label>
@@ -41,7 +43,9 @@ export interface TimesheetElement {
     <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
       Edit
     </a>
+    </mat-card>
   </div>
+  
 
   <a routerLink="/add"><button class="btn btn-success pull-right" > 
   Add New Timesheet
@@ -115,11 +119,18 @@ export class TimesheetsListComponent implements OnInit {
   // constructor(private pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
   // displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
 
-  constructor(public pService: ProfileService, private timesheetService: TimesheetsService, public identifier: IdentifierService, private auth: AuthService) {
+  constructor(public pService: ProfileService, private timesheetService: TimesheetsService, public identifier: IdentifierService, private auth: AuthService, private router: Router ) {
     this.userid = this.identifier.getIdentifier();
   }
 
   ngOnInit(): void {
+
+    this.auth.isAuthenticated$.subscribe(res=>{
+      if(!res){
+        this.router.navigate(['/'])
+      }
+    },err=>{
+    })
 
     this.retrieveTimesheets();
 

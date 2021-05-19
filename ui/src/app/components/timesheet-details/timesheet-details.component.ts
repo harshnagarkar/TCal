@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-timesheet-details',
   template: `
+  <div style="width: 400px; margin: auto;">
+  <a routerLink="/timesheets"><button class="btn btn-success pull-right" > 
+  Back to Timesheet List
+  </button></a>
   <br>
   <br>
   <div style="width: 400px; margin: auto;">

@@ -14,6 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTableModule} from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@auth0/auth0-angular'; // Import the module from the SDK
 import { LoginButtonComponent } from './components/login-button/login-button.component';
@@ -43,6 +44,7 @@ import { environment } from '../environments/environment'
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,

@@ -7,6 +7,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'app-add-timesheet',
   template: `
+  <mat-card style="padding: 0.5em; margin-top: 2em;">
   <div style="width: 400px; margin: auto;">
   <a routerLink="/timesheets"><button class="btn btn-success pull-right" > 
   Back to Timesheet List
@@ -16,7 +17,8 @@ import { AuthService } from '@auth0/auth0-angular';
     <div *ngIf="!submitted">
       <div class="form-group">
         <label for="Month">Date</label>
-        <input
+        <input 
+          matInput
           type="text"
           class="form-control"
           id="Month"
@@ -25,9 +27,11 @@ import { AuthService } from '@auth0/auth0-angular';
           name="Month"
         />
       </div>
+      <br>
       <div class="form-group">
       <label for="TimeIn">Time In</label>
       <input
+        matInput
         class="form-control"
         id="TimeIn"
         required
@@ -35,9 +39,11 @@ import { AuthService } from '@auth0/auth0-angular';
         name="TimeIn"
         />
       </div>
+      <br>
       <div class="form-group">
       <label for="TimeOut">Time Out</label>
       <input
+        matInput
         class="form-control"
         id="TimeOut"
         required
@@ -45,9 +51,11 @@ import { AuthService } from '@auth0/auth0-angular';
         name="TimeOut"
         />
       </div>
+      <br>
       <div class="form-group">
       <label for="NumHours">Hours</label>
       <input
+        matInput
         class="form-control"
         id="NumHours"
         required
@@ -55,7 +63,7 @@ import { AuthService } from '@auth0/auth0-angular';
         name="NumHours"
         />
       </div>
-
+      <br>
       <button (click)="saveTimesheet()" class="btn btn-success">Submit Entry</button>
     </div>
 
@@ -65,6 +73,7 @@ import { AuthService } from '@auth0/auth0-angular';
     </div>
   </div>
 </div>
+</mat-card>
   `,
   styles: [
   ]

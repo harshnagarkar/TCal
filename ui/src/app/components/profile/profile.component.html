@@ -2,6 +2,7 @@
 
 
 <div class="container-profile" *ngIf="(auth.isAuthenticated$ | async)">
+  <mat-card>
 <mat-form-field appearance="outline">
   <mat-label>Employee ID</mat-label>
   <input matInput [(ngModel)]="employee.Emp_ID">
@@ -46,4 +47,5 @@
 
 <br>
 <button (click)="save()" >Save</button>
+</mat-card>
 </div>

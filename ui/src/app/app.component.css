@@ -18,10 +18,11 @@ h6 {
 
 h1{
     font-size: 3rem;
-    padding-bottom: 5%;
+    /* padding-bottom: 5%; */
     padding-left: 0cm;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bolder;
+    margin-left: 1em;
   }
 
 p {
@@ -34,7 +35,9 @@ p {
 }
 
 .brand-text{
+  /* flex: 1; */
   font-size: 2em;
+  margin-top: 0em;
   color: rgb(255, 255, 255);
 }
 
@@ -42,19 +45,22 @@ p {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
 }
-
+.branddiv{
+  flex: 1;
+}
 .toolbar {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   right: 0;
-  height: 3em;
+  /* overflow:auto;  */
   display: flex;
   align-items: center;
   background-color: #11a725e5;
   color: rgb(175, 255, 202);
   font-weight: 600;
   font-size: 1.5em;
+  flex-wrap: wrap;
 }
 
 .toolbar img {
@@ -71,11 +77,13 @@ p {
 }
 
 .buttons{
-  margin-right: 1em;
+  /* margin-right: 1em; */
+  align-items: flex-end;
+  justify-items: flex-end;
 }
 .content {
   display: flex;
-  margin: 4em auto 4em;
+  margin: 0em auto 4em;
   padding: 0 1em;
   height: 100%;
   background-image: url("/assets/pexels-cats-coming-707582.jpg");
