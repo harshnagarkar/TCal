@@ -22,9 +22,6 @@ export interface TimesheetElement {
   <div *ngIf="currentTimesheet">
     <h4>Timesheet</h4>
     <div>
-      <label><strong>EmpName:</strong></label> {{ currentTimesheet.EmpName }}
-    </div>
-    <div>
       <label><strong>CSU Chico ID Number:</strong></label>
       {{ currentTimesheet.Emp_ID }}
     </div>
@@ -39,10 +36,6 @@ export interface TimesheetElement {
     <div>
       <label><strong>NumHours:</strong></label>
       {{ currentTimesheet.NumHours }}
-    </div>
-    <div>
-      <label><strong>Status:</strong></label>
-      {{ currentTimesheet.current ? "Current" : "Pending" }}
     </div>
 
     <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
