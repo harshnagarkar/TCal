@@ -19,7 +19,7 @@ import { AuthService } from '@auth0/auth0-angular';
         <label for="Month">Date</label>
         <input 
           matInput
-          type="text"
+          type="date"
           class="form-control"
           id="Month"
           required
@@ -33,6 +33,7 @@ import { AuthService } from '@auth0/auth0-angular';
       <input
         matInput
         class="form-control"
+        type="time"
         id="TimeIn"
         required
         matInput [(ngModel)]="timesheet.TimeIn"
@@ -46,6 +47,7 @@ import { AuthService } from '@auth0/auth0-angular';
         matInput
         class="form-control"
         id="TimeOut"
+        type="time"
         required
         matInput [(ngModel)]="timesheet.TimeOut"
         name="TimeOut"
@@ -59,6 +61,8 @@ import { AuthService } from '@auth0/auth0-angular';
         class="form-control"
         id="NumHours"
         required
+        type="number" 
+        step="0.01"
         matInput [(ngModel)]="timesheet.NumHours"
         name="NumHours"
         />

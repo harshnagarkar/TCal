@@ -16,6 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AuthModule } from '@auth0/auth0-angular'; // Import the module from the SDK
 import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
@@ -49,6 +50,7 @@ import { environment } from '../environments/environment'
     MatInputModule,
     MatTableModule,
     FormsModule,
+    MatDatepickerModule,
     HttpClientModule,
     MatTableModule,
     AuthModule.forRoot({ // Import the module into the application, with configuration
