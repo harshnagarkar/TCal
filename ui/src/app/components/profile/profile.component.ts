@@ -3,6 +3,7 @@ import {ProfileService} from "src/app/services/profile.service";
 import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 import { stringify } from '@angular/compiler/src/util';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,9 @@ export class ProfileComponent implements OnInit {
     Phone:0
   }
 
-  constructor(private pService : ProfileService,public auth: AuthService) {
+  onChange: any = () => { };
+
+  constructor(private pService : ProfileService,public auth: AuthService, private router: Router) {
     this.auth.isAuthenticated$.subscribe(res=>{
       if(!res){
       window.location.href="/index.html";
@@ -45,7 +48,6 @@ export class ProfileComponent implements OnInit {
       }
       console.log("assigned",this.employee)
     })
-
    }
 
   ngOnInit(): void {
@@ -74,9 +76,12 @@ export class ProfileComponent implements OnInit {
     if(this.employee.Email==""){
       console.log("updating email")
       this.auth.idTokenClaims$.subscribe(res=>{
-        console.log(res)
+        console.log(res)        
         this.employee.Email=String(res?.email)
+        this.onChange(this.employee)
+        // this.employee=newemployee
       })
+      
     }
     }
     
