@@ -4,24 +4,27 @@
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <a [routerLink]="['/profile']"><img width="70" height="50" src="../assets/hourglass.png"></a> 
-  <a [routerLink]="['/']"><span class="brand-text" 
+  <a class="brand-text"[routerLink]="['/profile']" > 
+  <span  
     style="font-weight: bold; margin-left: 10px; 
-    color: rgb(227, 241, 243)"><h1>TIMECAL</h1></span>
+    color: rgb(227, 241, 243)"><h1><img width="70" height="50" src="../assets/hourglass.png">TIMECAL</h1></span>
   </a>
   <div class="spacer">
     <button>
       <a [routerLink]="['/profile']" class="links" style="color: white;" >Profile</a>
     </button>
     <button>
-        <a class="nav-link mt-1" [routerLink]="['/timesheets']" style="color: white;">Timesheet</a>
+        <a class="links" [routerLink]="['/timesheets']" style="color: white;">Timesheet</a>
     </button>
+ 
+    
   </div>
   <div class="buttons">
-    &nbsp;
-    &nbsp;
     <app-authentication-button></app-authentication-button>  
   </div>
+
+
+ 
 </div>
 
 <div class="content" role="main">

@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-timesheet-details',
   template: `
+  <div style="width: 400px; margin: auto;">
+  <a routerLink="/timesheets"><button class="btn btn-success pull-right" > 
+  Back to Timesheet List
+  </button></a>
   <br>
   <br>
   <div style="width: 400px; margin: auto;">
@@ -14,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
       <div class="form-group">
         <label for="Month">Date</label>
         <input
-          type="text"
+          type="date"
           class="form-control"
           id="Month"
           [(ngModel)]="currentTimesheet.Month"
@@ -27,6 +31,7 @@ import { ActivatedRoute, Router } from '@angular/router';
           type="text"
           class="form-control"
           id="TimeIn"
+          type="time"
           [(ngModel)]="currentTimesheet.TimeIn"
           name="TimeIn"
         />
@@ -37,6 +42,7 @@ import { ActivatedRoute, Router } from '@angular/router';
           type="text"
           class="form-control"
           id="TimeOut"
+          type="time"
           [(ngModel)]="currentTimesheet.TimeOut"
           name="TimeOut"
         />
@@ -44,9 +50,10 @@ import { ActivatedRoute, Router } from '@angular/router';
       <div class="form-group">
       <label for="NumHours">Hours</label>
       <input
-        type="text"
         class="form-control"
         id="NumHours"
+        type="number" 
+        step="0.01"
         [(ngModel)]="currentTimesheet.NumHours"
         name="NumHours"
       />
