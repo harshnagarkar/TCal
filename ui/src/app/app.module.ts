@@ -23,7 +23,8 @@ import { AuthenticationButtonComponent } from './components/authentication-butto
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ProfileService } from './services/profile.service';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment'
+
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { environment } from '../environments/environment';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     FormsModule,
     HttpClientModule,
     MatTableModule,

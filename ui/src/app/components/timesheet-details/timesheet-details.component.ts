@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {IdentifierService} from "src/app/services/identifier.service"
 
 @Component({
   selector: 'app-timesheet-details',
@@ -13,7 +12,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
     <h1>Timesheet</h1>
     <form>
       <div class="form-group">
-        <label for="Month">Date:</label>
+        <label for="Month">Date</label>
         <input
           type="text"
           class="form-control"
@@ -23,7 +22,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
         />
       </div>
       <div class="form-group">
-        <label for="TimeIn">Time In:</label>
+        <label for="TimeIn">Time In</label>
         <input
           type="text"
           class="form-control"
@@ -33,7 +32,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
         />
       </div>
       <div class="form-group">
-        <label for="TimeOut">Time Out:</label>
+        <label for="TimeOut">Time Out</label>
         <input
           type="text"
           class="form-control"
@@ -43,7 +42,7 @@ import {IdentifierService} from "src/app/services/identifier.service"
         />
       </div>
       <div class="form-group">
-      <label for="NumHours">Hours:</label>
+      <label for="NumHours">Hours</label>
       <input
         type="text"
         class="form-control"
@@ -75,24 +74,21 @@ import {IdentifierService} from "src/app/services/identifier.service"
 </div>  
 `,
   styles: [
-    'input {color: rgb(6, 134, 128);}',
-    'label {color: rgb(6, 134, 128); font-weight: bold; margin-right: 5px;}'
+    'input {color: rgb(6, 134, 128);}'
   ]
 })
 export class TimesheetDetailsComponent implements OnInit {
   currentTimesheet:any = null;
   message = '';
-  userid = this.identifier.getIdentifier();
 
   constructor(
-    private timesheetService: TimesheetsService, public identifier: IdentifierService,
+    private timesheetService: TimesheetsService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
     this.message = '';
     this.getTimesheet(this.route.snapshot.paramMap.get('id'));
-    this.userid = this.identifier.getIdentifier()
   }
 
   getTimesheet(id:any): void {
@@ -100,6 +96,7 @@ export class TimesheetDetailsComponent implements OnInit {
       .subscribe(
         data => {
           this.currentTimesheet = data;
+          //console.log(data);
         },
         error => {
           console.log(error);
@@ -107,16 +104,18 @@ export class TimesheetDetailsComponent implements OnInit {
   }
 
   updateCurrent(status:any): void {
+    console.log("trying to update")
     const data = {
       TimeIn: this.currentTimesheet.TimeIn,
       TimeOut: this.currentTimesheet.TimeOut,
       NumHours: this.currentTimesheet.NumHours
     };
-
+    console.log(data)
     this.timesheetService.update(this.currentTimesheet._id, data)
       .subscribe(
         response => {
           this.currentTimesheet.current = status;
+          console.log(response);
         },
         error => {
           console.log(error);
@@ -124,32 +123,28 @@ export class TimesheetDetailsComponent implements OnInit {
   }
 
   updateTimesheet(): void {
-    if (this.currentTimesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
-      this.timesheetService.update(this.currentTimesheet._id, this.currentTimesheet)
-        .subscribe(
-          response => {
-            this.message = 'The timesheet was updated successfully!';
-          },
-          error => {
-            console.log(error);
-          });
-    } else {
-      this.message = "Error: Not Authorized"
-    }
+    console.log("update timesheet")
+    console.log(this.currentTimesheet)
+    this.timesheetService.update(this.currentTimesheet._id, this.currentTimesheet)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.message = 'The timesheet was updated successfully!';
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   deleteTimesheet(): void {
-    if (this.currentTimesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
-      this.timesheetService.delete(this.currentTimesheet._id)
-        .subscribe(
-          response => {
-            this.router.navigate(['/timesheets']);
-          },
-          error => {
-            console.log(error);
-          });
-      } else {
-        this.message = "Error: Not Authorized"
-      }
+    this.timesheetService.delete(this.currentTimesheet._id)
+      .subscribe(
+        response => {
+          //console.log(response);
+          this.router.navigate(['/timesheets']);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

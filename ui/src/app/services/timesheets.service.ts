@@ -20,15 +20,26 @@ export class TimesheetsService {
     return this.http.get(baseUrl, httpOptions);
   }
 
+  getEmpName(ename:string): Observable<any> {
+    return this.http.get(baseUrl+`/?EmpName=${ename}`, httpOptions);
+  }
+
   get(id:any): Observable<any> {
     return this.http.get(`${baseUrl}/${id}`, httpOptions);
   }
 
   create(data:any): Observable<any> {
+    console.log("creating")
     return this.http.post(baseUrl, data, httpOptions);
   }
 
   update(id:any, data:any): Observable<any> {
+
+    // Array.from(Object.keys(data)).forEach(function(key){
+    //   console.log(key + ":" + data[key]);
+    // })
+    console.log(id+" "+data)
+
     return this.http.put(`${baseUrl}/${id}`, data, httpOptions);
   }
 

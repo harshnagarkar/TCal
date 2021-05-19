@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
     this.employee.Emp_ID=String(this.pService.Eid);
     let datacall = pService.get(this.employee.Emp_ID);
     datacall.subscribe((data:any)=>{
-
+      console.log(data)
       this.employee={
         Emp_ID:data[0].empId,
         FirstName:data[0].firstName,
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  
+    this.updateEmail()
   }
   
   save(){
@@ -68,4 +68,16 @@ export class ProfileComponent implements OnInit {
     });
     
   }
+
+  updateEmail(){
+    console.log("updating email"+this.employee.Email)
+    if(this.employee.Email==""){
+      console.log("updating email")
+      this.auth.idTokenClaims$.subscribe(res=>{
+        console.log(res)
+        this.employee.Email=String(res?.email)
+      })
+    }
+    }
+    
 }

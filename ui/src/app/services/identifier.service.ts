@@ -16,12 +16,22 @@ export class IdentifierService {
     }
   }
 
-  constructor(public identifier: IdentifierService, private auth: AuthService) { }
+  constructor(private auth: AuthService) { }
   token:any
   decode:any
+  
   getIdentifier() : string {
-    this.auth.getAccessTokenSilently().subscribe(token => this.token = token);
+    // let decode=""
+    // this.auth.idTokenClaims$.subscribe(res=>{
+    //   decode=res?.sub
+    //   console.log("subject"+res?.sub)
+    //   return String(res?.sub)
+    // })
+    // return decode
+    this.auth.getAccessTokenSilently().subscribe(token => {this.token = token});
+    console.log("the token is "+this.token)
     this.token = this.decodeToken(this.token);
+    // console.log(this.token)
     //console.log("FULL:",this.token)
     if (this.token != null) {
       this.decode = this.token.sub;

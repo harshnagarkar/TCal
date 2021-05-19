@@ -1,68 +1,106 @@
 import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
-import {ProfileService} from "src/app/services/profile.service";
-import {IdentifierService} from "src/app/services/identifier.service"
+import { ProfileService } from "src/app/services/profile.service";
+import { IdentifierService } from "src/app/services/identifier.service"
+import { AuthService } from '@auth0/auth0-angular';
+
+
+export interface TimesheetElement {
+  Month: string;
+  TimeIn: string;
+  TimeOut: String;
+  NumHours: number;
+  Edit: object;
+}
 
 @Component({
   selector: 'app-timesheets-list',
   template: `
   <br>
   <div class="list row">
-
   <div class="col-md-6">
-    <h4>All Entries</h4>
-    <div *ngFor="let timesheet of timesheets; let i = index">
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngIf="timesheet.EmpName == this.userid"
-        [class.active]="i == currentIndex"
-        (click)="setActiveTimesheet(timesheet, i)"
-      >
-        {{ timesheet.Month }}
-      </li>
-    </ul>
+  <div *ngIf="currentTimesheet">
+    <h4>Timesheet</h4>
+    <div>
+      <label><strong>EmpName:</strong></label> {{ currentTimesheet.EmpName }}
+    </div>
+    <div>
+      <label><strong>CSU Chico ID Number:</strong></label>
+      {{ currentTimesheet.Emp_ID }}
+    </div>
+    <div>
+      <label><strong>TimeIn:</strong></label>
+      {{ currentTimesheet.TimeIn }}
+    </div>
+    <div>
+      <label><strong>TimeOut:</strong></label>
+      {{ currentTimesheet.TimeOut }}
+    </div>
+    <div>
+      <label><strong>NumHours:</strong></label>
+      {{ currentTimesheet.NumHours }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentTimesheet.current ? "Current" : "Pending" }}
     </div>
 
-    <a routerLink="/add"><button class="btn btn-success pull-right" > 
-    Add New Entry
-    </button></a>
-
-  </div>
-
-  <div class="col-md-6">
-    <div *ngIf="currentTimesheet">
-      <h4>Entry Details</h4>
-      <div>
-        <label><strong>CSU Chico ID Number:</strong></label>
-        {{ currentTimesheet.Emp_ID }}
-      </div>
-      <div>
-        <label><strong>Time In:</strong></label>
-        {{ currentTimesheet.TimeIn }}
-      </div>
-      <div>
-        <label><strong>Time Out:</strong></label>
-        {{ currentTimesheet.TimeOut }}
-      </div>
-      <div>
-        <label><strong>Hours:</strong></label>
-        {{ currentTimesheet.NumHours }}
-      </div>
-      <div>
-        <label><strong>Month:</strong></label>
-        {{ currentTimesheet.Month }}
-      </div>
-      <a routerLink="/timesheets/{{ currentTimesheet._id }}"><button style="padding:3px; width: 60px"> 
+    <a class="badge badge-warning" routerLink="/timesheets/{{ currentTimesheet._id }}">
       Edit
-      </button></a>
-    </div>
-    <div *ngIf="!currentTimesheet">
-      <br />
-      <p>Click on an entry to view details and edit.</p>
-    </div>
+    </a>
   </div>
-</div>
+
+  <a routerLink="/add"><button class="btn btn-success pull-right" > 
+  Add New Timesheet
+  </button></a>
+  </div>
+  <table mat-table [dataSource]="timesheets" class="mat-elevation-z8">
+	<ng-container matColumnDef="Month">
+      <th mat-header-cell *matHeaderCellDef> Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.Month}} </td>
+    </ng-container>
+  
+  <ng-container matColumnDef="TimeIn">
+    <th mat-header-cell *matHeaderCellDef> TimeIn </th>
+    <td mat-cell *matCellDef="let element"> {{element.TimeIn}} </td>
+  </ng-container>
+  
+  <!-- Weight Column -->
+  <ng-container matColumnDef="TimeOut">
+    <th mat-header-cell *matHeaderCellDef> TimeOut </th>
+    <td mat-cell *matCellDef="let element"> {{element.TimeOut}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="NumHours">
+  <th mat-header-cell *matHeaderCellDef> NumHours </th>
+  <td mat-cell *matCellDef="let element"> {{element.NumHours}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Edit">
+<th mat-header-cell *matHeaderCellDef> Edit </th>
+<td mat-cell *matCellDef="let element"> <button mat-button color="accent" (click)="setActiveTimesheet(element)" >Edit</button>  </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+      
+
+      <style>
+      table {
+        width: 100%;
+      }
+      td{
+        width: 8em;
+      }
+      </style>
+
+  
+
+ 
+    
   `,
   styles: [
     'h4 {color: rgb(2, 128, 8); font-weight: bold; font-size: large; margin: 15px;}',
@@ -73,66 +111,88 @@ import {IdentifierService} from "src/app/services/identifier.service"
 export class TimesheetsListComponent implements OnInit {
 
   timesheets: any;
-  currentTimesheet:any = null;
+  currentTimesheet: any = null;
   currentIndex = -1;
   EmpName = '';
-  userid = this.identifier.getIdentifier();
   loginId = String(this.pService.Eid);
   msgs: any[] = [];
-  displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
+  // subscription: Subscription;
+  displayedColumns: string[] = ['Month', 'TimeIn', 'TimeOut', 'NumHours', 'Edit'];
+  userid: any;
+  // constructor(private pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
+  // displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
 
-  constructor(public pService : ProfileService,private timesheetService: TimesheetsService, public identifier: IdentifierService) { 
+  constructor(public pService: ProfileService, private timesheetService: TimesheetsService, public identifier: IdentifierService, private auth: AuthService) {
+    this.userid = this.identifier.getIdentifier();
   }
 
   ngOnInit(): void {
+
     this.retrieveTimesheets();
-    this.userid = this.identifier.getIdentifier()
+
+    console.log(this.userid)
   }
 
   retrieveTimesheets(): void {
-    this.timesheetService.getAll()
+    console.log("Userid", this.userid)
+      let counter=1
+      this.auth.idTokenClaims$.subscribe(res=>{
+        console.log(res?.sub+" "+counter)
+        // this.timesheetService.getEmpName("")
+        this.timesheetService.getEmpName(res?.sub)
+        .subscribe(
+          (data: any) => {
+            this.timesheets = data;
+            console.log(this.timesheets)
+          },
+          (error: any) => {
+            console.log(error);
+          });
+
+      })
+      
+
+    // console.log("EID"+this.pService.Eid)
+
+  }
+
+  refreshList(): void { //not needed anymore?
+    this.retrieveTimesheets();
+    this.currentTimesheet = null;
+    this.currentIndex = -1;
+  }
+
+  // setActiveTimesheet(timesheet:any, index:any): void {
+  //   this.currentTimesheet = timesheet;
+  //   this.currentIndex = index;
+  // }
+
+  setActiveTimesheet(timesheet: any) {
+    if (timesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
+      this.currentTimesheet = timesheet;
+    } else {
+      console.log("Error: Not Authorized")
+    }
+  }
+
+  removeAllTimesheets(): void { //not needed
+    this.timesheetService.deleteAll()
       .subscribe(
-        (data: any) => {
-          this.timesheets = data;
+        (response: any) => {
+          this.retrieveTimesheets();
         },
         (error: any) => {
           console.log(error);
         });
   }
 
-  refreshList(): void {
-    this.retrieveTimesheets();
-    this.currentTimesheet = null;
-    this.currentIndex = -1;
-  }
-
-  setActiveTimesheet(timesheet:any, index:any): void {
-    if (timesheet.EmpName == this.userid) { //Check token id - don't let request through if it's incorrect
-        this.currentTimesheet = timesheet;
-        this.currentIndex = index;
-    } else {
-        console.log("Error: Not Authorized")
-    }
-  }
-
-  removeAllTimesheets(): void {
-    this.timesheetService.deleteAll()
-      .subscribe(
-        (response:any) => {
-          this.retrieveTimesheets();
-        },
-        (error:any) => {
-          console.log(error);
-        });
-  }
-
-  searchName(): void {
+  searchName(): void { //not needed anymore
     this.timesheetService.findByName(this.EmpName)
       .subscribe(
-        (data:any) => {
+        (data: any) => {
           this.timesheets = data;
         },
-        (error:any) => {
+        (error: any) => {
           console.log(error);
         });
   }

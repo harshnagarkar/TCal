@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TimesheetsService } from 'src/app/services/timesheets.service';
 import {ProfileService} from "src/app/services/profile.service";
 import {IdentifierService} from "src/app/services/identifier.service";
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-add-timesheet',
@@ -68,6 +69,8 @@ import {IdentifierService} from "src/app/services/identifier.service";
   styles: [
   ]
 })
+
+
 export class AddTimesheetComponent implements OnInit {
 
   timesheet = {
@@ -80,38 +83,96 @@ export class AddTimesheetComponent implements OnInit {
     Identifier: ''
   };
   submitted = false;
+  running=false;
   userID = this.identifier.getIdentifier();
   
-  constructor(private timesheetService: TimesheetsService, private pService : ProfileService, public identifier: IdentifierService) { }
+  constructor(private auth: AuthService,private timesheetService: TimesheetsService, private pService : ProfileService, public identifier: IdentifierService) {
+    console.log("userid",this.userID)
+   }
 
   ngOnInit(): void {
     //console.log("HERE IT IS:",this.userID);
+    console.log("reloading")
   }
 
-  saveTimesheet(): void {
-    const data = {
-      EmpName: this.userID,
-      Emp_ID: this.pService.Eid,
-      Month: this.timesheet.Month,
-      TimeIn: this.timesheet.TimeIn,
-      TimeOut: this.timesheet.TimeOut,
-      NumHours: this.timesheet.NumHours,
-      Identifier: this.userID
-    };
+  
 
-    this.timesheetService.create(data)
-      .subscribe(
-        response => {
-          //console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+  saveTimesheet(): void {
+    
+    console.log("inside")
+  //   let promise = () => {
+      
+  //   let data= this.auth.idTokenClaims$.toPromise().
+  //   then(res=>{
+  //     console.log("id")
+  //     return res
+  //   }).catch(err=>{
+  //     console.log(err)
+  //     return err
+  //   })
+  //   console.log(data)
+  // }
+  // let ans
+  // let errors
+  // console.log(promise())
+
+      
+    //   idtoken=>{
+    //   const data = {
+    //     EmpName: idtoken?.sub,
+    //     Emp_ID: this.pService.Eid,
+    //     Month: this.timesheet.Month,
+    //     TimeIn: this.timesheet.TimeIn,
+    //     TimeOut: this.timesheet.TimeOut,
+    //     NumHours: this.timesheet.NumHours,
+    //     Identifier: idtoken?.sub
+    //   };
+  
+    //   this.timesheetService.create(data).subscribe(res2=>{
+    //     this.submitted=true
+    //   },err2=>{
+    //     console.log(err2)
+    //   })
+    // },err=>{console.log(err)});
+    console.log("completed")
+    let data
+   this.auth.idTokenClaims$.subscribe(idtoken=>{
+    if(!this.running){
+      this.running=true
+      data = {
+        EmpName: idtoken?.sub,
+        Emp_ID: this.pService.Eid,
+        Month: this.timesheet.Month,
+        TimeIn: this.timesheet.TimeIn,
+        TimeOut: this.timesheet.TimeOut,
+        NumHours: this.timesheet.NumHours,
+        Identifier: idtoken?.sub
+      };
+      console.log("completed2")
+      // let s= async (data:any) => {
+      //   await this.timesheetService.create(data).subscribe(res2=>{
+      //     this.submitted=true
+      //     console.log("saved ")
+      //   },err2=>{
+      //     console.log(err2)
+      //   })  
+      // }
+      // s(data)
+      this.timesheetService.create(data).subscribe(res2=>{
+          this.submitted=true
+          console.log("saved ")
+        },err2=>{
+          console.log(err2)
+        })  
+
+    }
+    },err=>{console.log(err)}
+    )
   }
 
   newTimesheet(): void {
     this.submitted = false;
+    this.running=false;
     this.timesheet = {
       EmpName: '',
       Emp_ID: '',
