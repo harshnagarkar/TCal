@@ -52,6 +52,29 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateEmail()
+    this.auth.isAuthenticated$.subscribe(res=>{
+      if(!res){
+      window.location.href="/index.html";
+      }
+    })
+    
+    this.employee.Emp_ID=String(this.pService.Eid);
+    let datacall = this.pService.get(this.employee.Emp_ID);
+    datacall.subscribe((data:any)=>{
+      console.log(data)
+      this.employee={
+        Emp_ID:data[0].empId,
+        FirstName:data[0].firstName,
+        LastName:data[0].lastName,
+        Email:data[0].email,
+        Department:data[0].department,
+        Position:data[0].position,
+        Pay_Rate:data[0].payRate,
+        Phone:data[0].phone
+      }
+      console.log("assigned",this.employee)
+    })
+        
   }
   
   save(){
