@@ -23,41 +23,18 @@ export class ProfileComponent implements OnInit {
     Phone:0
   }
 
-  onChange: any = () => { };
+  onChange: any = (ts:any) => {this.employee=ts };
 
   constructor(private pService : ProfileService,public auth: AuthService, private router: Router) {
     this.auth.isAuthenticated$.subscribe(res=>{
       if(!res){
       window.location.href="/index.html";
       }
-    })
-    
-    this.employee.Emp_ID=String(this.pService.Eid);
-    let datacall = pService.get(this.employee.Emp_ID);
-    datacall.subscribe((data:any)=>{
-      console.log(data)
-      this.employee={
-        Emp_ID:data[0].empId,
-        FirstName:data[0].firstName,
-        LastName:data[0].lastName,
-        Email:data[0].email,
-        Department:data[0].department,
-        Position:data[0].position,
-        Pay_Rate:data[0].payRate,
-        Phone:data[0].phone
-      }
-      console.log("assigned",this.employee)
-    })
+    }) 
+    this.updateEmail()
    }
 
-  ngOnInit(): void {
-    this.updateEmail()
-    this.auth.isAuthenticated$.subscribe(res=>{
-      if(!res){
-      window.location.href="/index.html";
-      }
-    })
-    
+   fetchEmployee(): void{
     this.employee.Emp_ID=String(this.pService.Eid);
     let datacall = this.pService.get(this.employee.Emp_ID);
     datacall.subscribe((data:any)=>{
@@ -72,9 +49,14 @@ export class ProfileComponent implements OnInit {
         Pay_Rate:data[0].payRate,
         Phone:data[0].phone
       }
+      this.onChange(this.employee)
       console.log("assigned",this.employee)
-    })
-        
+    }) 
+   }
+
+  ngOnInit(): void {
+    // this.setEmpID()   
+    this.fetchEmployee()
   }
   
   save(){
@@ -90,8 +72,23 @@ export class ProfileComponent implements OnInit {
     };
     this.pService.update(this.employee.Emp_ID,data).subscribe(data=>{
       console.log("saved")
-    });
-    
+    }); 
+  }
+
+  setEmpID(callback:any){
+    this.auth.isAuthenticated$.subscribe(res=>{
+      if(res){
+        this.auth.user$.subscribe(res=>{
+          // (i === 0 ? "true" : "false")
+          let eml = res?.email ? res?.email:"";
+          //console.log(eml)
+          this.pService.getIDfromEmail(eml).subscribe(res2=>{
+            //console.log(res2)
+            this.pService.Eid=res2.empId
+          })
+        })
+      }
+    })
   }
 
   updateEmail(){
@@ -101,6 +98,12 @@ export class ProfileComponent implements OnInit {
       this.auth.idTokenClaims$.subscribe(res=>{
         console.log(res)        
         this.employee.Email=String(res?.email)
+        this.pService.getIDfromEmail(this.employee.Email).subscribe(res2=>{
+          //console.log(res2)
+          this.pService.Eid=res2.empId
+          this.fetchEmployee()
+        })
+        
         this.onChange(this.employee)
         // this.employee=newemployee
       })

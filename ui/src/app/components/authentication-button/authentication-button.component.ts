@@ -12,9 +12,7 @@ import {ProfileService} from "src/app/services/profile.service";
 })
 export class AuthenticationButtonComponent implements OnInit {
 
-  constructor(public auth: AuthService,private pService : ProfileService) { }
-
-  ngOnInit(): void {
+  constructor(public auth: AuthService,private pService : ProfileService) { 
     this.auth.isAuthenticated$.subscribe(res=>{
       if(res){
         this.auth.user$.subscribe(res=>{
@@ -28,6 +26,11 @@ export class AuthenticationButtonComponent implements OnInit {
         })
       }
     })
+
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

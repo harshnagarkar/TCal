@@ -16,7 +16,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  Eid=0;
+  Eid=(-1);
 
   get(Emp_ID:String): Observable<any> {
     //console.log(`${baseUrl}/?eid=${Emp_ID}`);

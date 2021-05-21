@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   <br>
   <div style="width: 400px; margin: auto;">
   <div *ngIf="currentTimesheet" class="edit-form">
+  <mat-card>
     <h1>Timesheet</h1>
     <form>
       <div class="form-group">
@@ -72,13 +73,17 @@ import { ActivatedRoute, Router } from '@angular/router';
       Update
     </button>
     <p>{{ message }}</p>
+    </mat-card>
   </div>
 
   <div *ngIf="!currentTimesheet">
+  <mat-card>
     <br />
     <p>Cannot access this Timesheet...</p>
-  </div>
+    </mat-card>
+    </div>
 </div>  
+
 `,
   styles: [
     'input {color: rgb(6, 134, 128);}'
