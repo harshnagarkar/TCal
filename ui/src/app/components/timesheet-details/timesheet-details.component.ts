@@ -115,18 +115,15 @@ export class TimesheetDetailsComponent implements OnInit {
   }
 
   updateCurrent(status:any): void {
-    console.log("trying to update")
     const data = {
       TimeIn: this.currentTimesheet.TimeIn,
       TimeOut: this.currentTimesheet.TimeOut,
       NumHours: this.currentTimesheet.NumHours
     };
-    console.log(data)
     this.timesheetService.update(this.currentTimesheet._id, data)
       .subscribe(
         response => {
           this.currentTimesheet.current = status;
-          console.log(response);
         },
         error => {
           console.log(error);
@@ -134,12 +131,9 @@ export class TimesheetDetailsComponent implements OnInit {
   }
 
   updateTimesheet(): void {
-    console.log("update timesheet")
-    console.log(this.currentTimesheet)
     this.timesheetService.update(this.currentTimesheet._id, this.currentTimesheet)
       .subscribe(
         response => {
-          console.log(response);
           this.message = 'The timesheet was updated successfully!';
         },
         error => {

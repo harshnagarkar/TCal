@@ -113,11 +113,8 @@ export class TimesheetsListComponent implements OnInit {
   EmpName = '';
   loginId = String(this.pService.Eid);
   msgs: any[] = [];
-  // subscription: Subscription;
   displayedColumns: string[] = ['Month', 'TimeIn', 'TimeOut', 'NumHours', 'Edit'];
   userid: any;
-  // constructor(private pService : ProfileService,private timesheetService: TimesheetsService, private interactionService: InteractionService) { 
-  // displayedColumns: string[] = ['Month','TimeIn','TimeOut','NumHours'];
 
   constructor(public pService: ProfileService, private timesheetService: TimesheetsService, public identifier: IdentifierService, private auth: AuthService, private router: Router ) {
     this.userid = this.identifier.getIdentifier();
@@ -133,30 +130,21 @@ export class TimesheetsListComponent implements OnInit {
     })
 
     this.retrieveTimesheets();
-
-    console.log(this.userid)
   }
 
   retrieveTimesheets(): void {
-    console.log("Userid", this.userid)
       let counter=1
       this.auth.idTokenClaims$.subscribe(res=>{
-        console.log(res?.sub+" "+counter)
-        // this.timesheetService.getEmpName("")
         this.timesheetService.getEmpName(res?.sub)
         .subscribe(
           (data: any) => {
             this.timesheets = data;
-            console.log(this.timesheets)
           },
           (error: any) => {
             console.log(error);
           });
 
       })
-      
-
-    // console.log("EID"+this.pService.Eid)
 
   }
 
@@ -165,11 +153,6 @@ export class TimesheetsListComponent implements OnInit {
     this.currentTimesheet = null;
     this.currentIndex = -1;
   }
-
-  // setActiveTimesheet(timesheet:any, index:any): void {
-  //   this.currentTimesheet = timesheet;
-  //   this.currentIndex = index;
-  // }
 
   setActiveTimesheet(timesheet: any) {
       this.currentTimesheet = timesheet;

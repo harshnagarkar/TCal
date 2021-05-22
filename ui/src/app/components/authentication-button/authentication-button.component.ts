@@ -16,11 +16,8 @@ export class AuthenticationButtonComponent implements OnInit {
     this.auth.isAuthenticated$.subscribe(res=>{
       if(res){
         this.auth.user$.subscribe(res=>{
-          // (i === 0 ? "true" : "false")
           let eml = res?.email ? res?.email:"";
-          //console.log(eml)
           this.pService.getIDfromEmail(eml).subscribe(res2=>{
-            //console.log(res2)
             this.pService.Eid=res2.empId
           })
         })

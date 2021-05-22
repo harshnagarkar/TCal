@@ -29,16 +29,10 @@ export class TimesheetsService {
   }
 
   create(data:any): Observable<any> {
-    console.log("creating")
     return this.http.post(baseUrl, data, httpOptions);
   }
 
   update(id:any, data:any): Observable<any> {
-
-    // Array.from(Object.keys(data)).forEach(function(key){
-    //   console.log(key + ":" + data[key]);
-    // })
-    console.log(id+" "+data)
 
     return this.http.put(`${baseUrl}/${id}`, data, httpOptions);
   }

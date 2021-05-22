@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "src/app/services/profile.service";
-import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
-import { stringify } from '@angular/compiler/src/util';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -40,7 +38,6 @@ export class ProfileComponent implements OnInit {
     this.employee.Emp_ID=String(this.pService.Eid);
     let datacall = this.pService.get(this.employee.Emp_ID);
     datacall.subscribe((data:any)=>{
-      console.log(data)
       this.employee={
         Emp_ID:data[0].empId,
         FirstName:data[0].firstName,
@@ -52,7 +49,6 @@ export class ProfileComponent implements OnInit {
         Phone:data[0].phone
       }
       this.onChange(this.employee)
-      console.log("assigned",this.employee)
     }) 
    }
 
@@ -72,7 +68,6 @@ export class ProfileComponent implements OnInit {
       phone:this.employee.Phone
     };
     this.pService.update(this.employee.Emp_ID,data).subscribe(data=>{
-      console.log("saved")
       this._snackBar.open("saved","cancel",{
         duration: 3000
       })
@@ -95,14 +90,10 @@ export class ProfileComponent implements OnInit {
 
   // Check if email is blank and starts the whole process for updating  employee
   updateEmail(){
-    console.log("updating email"+this.employee.Email)
     if(this.employee.Email==""){
-      console.log("updating email")
       this.auth.idTokenClaims$.subscribe(res=>{
-        console.log(res)        
         this.employee.Email=String(res?.email)
         this.pService.getIDfromEmail(this.employee.Email).subscribe(res2=>{
-          //console.log(res2)
           this.pService.Eid=res2.empId
           this.fetchEmployee()
         })

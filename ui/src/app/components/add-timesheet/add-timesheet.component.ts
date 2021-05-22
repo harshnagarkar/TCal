@@ -97,57 +97,17 @@ export class AddTimesheetComponent implements OnInit {
   };
   submitted = false;
   running=false;
-  userID = this.identifier.getIdentifier();
+  userID = this.identifier.getIdentifier(); //get .sub from jwt token, assign to user id - AL 5/21/21
   
   constructor(private auth: AuthService,private timesheetService: TimesheetsService, private pService : ProfileService, public identifier: IdentifierService) {
-    console.log("userid",this.userID)
    }
 
   ngOnInit(): void {
-    //console.log("HERE IT IS:",this.userID);
-    console.log("reloading")
   }
 
   
 
   saveTimesheet(): void {
-    
-    console.log("inside")
-  //   let promise = () => {
-      
-  //   let data= this.auth.idTokenClaims$.toPromise().
-  //   then(res=>{
-  //     console.log("id")
-  //     return res
-  //   }).catch(err=>{
-  //     console.log(err)
-  //     return err
-  //   })
-  //   console.log(data)
-  // }
-  // let ans
-  // let errors
-  // console.log(promise())
-
-      
-    //   idtoken=>{
-    //   const data = {
-    //     EmpName: idtoken?.sub,
-    //     Emp_ID: this.pService.Eid,
-    //     Month: this.timesheet.Month,
-    //     TimeIn: this.timesheet.TimeIn,
-    //     TimeOut: this.timesheet.TimeOut,
-    //     NumHours: this.timesheet.NumHours,
-    //     Identifier: idtoken?.sub
-    //   };
-  
-    //   this.timesheetService.create(data).subscribe(res2=>{
-    //     this.submitted=true
-    //   },err2=>{
-    //     console.log(err2)
-    //   })
-    // },err=>{console.log(err)});
-    console.log("completed")
     let data
    this.auth.idTokenClaims$.subscribe(idtoken=>{
     if(!this.running){
@@ -161,19 +121,8 @@ export class AddTimesheetComponent implements OnInit {
         NumHours: this.timesheet.NumHours,
         Identifier: idtoken?.sub
       };
-      console.log("completed2")
-      // let s= async (data:any) => {
-      //   await this.timesheetService.create(data).subscribe(res2=>{
-      //     this.submitted=true
-      //     console.log("saved ")
-      //   },err2=>{
-      //     console.log(err2)
-      //   })  
-      // }
-      // s(data)
       this.timesheetService.create(data).subscribe(res2=>{
           this.submitted=true
-          console.log("saved ")
         },err2=>{
           console.log(err2)
         })  
