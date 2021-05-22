@@ -3,7 +3,7 @@ module.exports = mongoose => {
       "timesheet",
       mongoose.Schema(
         {
-          EmpName: String,
+          EmpName: String, //actually holds user id from jwt token .sub field - AL 5/21/21
           Emp_ID: String,
           Month: String,
           TimeIn: String,

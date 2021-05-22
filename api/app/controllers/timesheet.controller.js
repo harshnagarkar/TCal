@@ -7,8 +7,6 @@ exports.create = (req, res) => {
       res.status(400).send({ message: "You must include a date!" });
       return;
     }
-
-    console.log(req.body)
   
     // Create a Timesheet
     const timesheet = new Timesheet({
@@ -24,7 +22,6 @@ exports.create = (req, res) => {
     timesheet
       .save(timesheet)
       .then(data => {
-        console.log("saved data"+req.body.EmpName+"id")
         res.send(data);
       })
       .catch(err => {
@@ -36,11 +33,8 @@ exports.create = (req, res) => {
   };
   
   exports.findAll = (req, res) => {
-    const EmpName = req.query.EmpName;
-    console.log("EmpName is "+EmpName)
+    const EmpName = req.query.EmpName; //check EmpName - aka token user id - AL 5/21/21
     var condition = EmpName ? { EmpName: EmpName } : {};
-    // var condition = EmpName ? { EmpName: { $regex: new RegExp(EmpName), $options: "i" } } : {};
-    console.log("find equals")
     Timesheet.find(condition)
       .then(data => {
         res.send(data);
@@ -71,8 +65,6 @@ exports.create = (req, res) => {
   };
 
   exports.update = (req, res) => {
-
-    console.log("updating")
     if (!req.body) {
       return res.status(400).send({
         message: "Update data cannot be left blank."
