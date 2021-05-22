@@ -4,6 +4,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 import { stringify } from '@angular/compiler/src/util';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   onChange: any = (ts:any) => {this.employee=ts };
 
-  constructor(private pService : ProfileService,public auth: AuthService, private router: Router) {
+  constructor(private pService : ProfileService,public auth: AuthService, private router: Router,private _snackBar: MatSnackBar) {
     this.auth.isAuthenticated$.subscribe(res=>{
       if(!res){
       window.location.href="/index.html";
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
     this.updateEmail()
    }
 
+  //  fetches the employee data from the database using employee ID
    fetchEmployee(): void{
     this.employee.Emp_ID=String(this.pService.Eid);
     let datacall = this.pService.get(this.employee.Emp_ID);
@@ -55,10 +57,9 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.setEmpID()   
-    this.fetchEmployee()
   }
   
+  // Saves the model to the database
   save(){
     let data={
       empId:this.employee.Emp_ID,
@@ -72,18 +73,19 @@ export class ProfileComponent implements OnInit {
     };
     this.pService.update(this.employee.Emp_ID,data).subscribe(data=>{
       console.log("saved")
+      this._snackBar.open("saved","cancel",{
+        duration: 3000
+      })
     }); 
   }
 
+  // set the employee ID based on email address
   setEmpID(callback:any){
     this.auth.isAuthenticated$.subscribe(res=>{
       if(res){
         this.auth.user$.subscribe(res=>{
-          // (i === 0 ? "true" : "false")
           let eml = res?.email ? res?.email:"";
-          //console.log(eml)
           this.pService.getIDfromEmail(eml).subscribe(res2=>{
-            //console.log(res2)
             this.pService.Eid=res2.empId
           })
         })
@@ -91,6 +93,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  // Check if email is blank and starts the whole process for updating  employee
   updateEmail(){
     console.log("updating email"+this.employee.Email)
     if(this.employee.Email==""){
@@ -105,7 +108,6 @@ export class ProfileComponent implements OnInit {
         })
         
         this.onChange(this.employee)
-        // this.employee=newemployee
       })
       
     }

@@ -16,18 +16,20 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
+  // Public variable that stores the Employee ID
   Eid=(-1);
 
+  // Gets that data for a particular empoyee based on ID
   get(Emp_ID:String): Observable<any> {
-    //console.log(`${baseUrl}/?eid=${Emp_ID}`);
     return this.http.get(`${baseUrl}/?eid=${Emp_ID}`, httpOptions);
   }
 
+  // Gets the ID from a employee based on Email
   getIDfromEmail(inemail:String): Observable<any> {
-    //console.log(`${baseUrl}/email/?email=${inemail}`);
     return this.http.get(`${baseUrl}/email/?email=${inemail}`, httpOptions);
   }
 
+  // Updates the employee details based on the ID
   update(Emp_ID:string, data:any): Observable<any> {
     return this.http.post(`${baseUrl}`, data, httpOptions);
   }

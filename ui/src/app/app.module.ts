@@ -16,6 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AuthModule } from '@auth0/auth0-angular'; // Import the module from the SDK
 import { LoginButtonComponent } from './components/login-button/login-button.component';
@@ -47,6 +48,7 @@ import { environment } from '../environments/environment'
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     MatInputModule,
     MatTableModule,
     FormsModule,
